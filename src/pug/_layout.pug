@@ -1,0 +1,33 @@
+mixin icon(name)
+  svg(class="icon icon-" + name)
+    use(xlink:href="#icon-" + name)
+
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    block title
+      title Jade Layout Template
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(content="IE=9" http-equiv="X-UA-Compatible")
+    meta(name="format-detection" content="telephone=no")
+    meta(name='theme-color', content='#212121')
+    meta(name="apple-mobile-web-app-status-bar-style" content="#212121")
+    link(rel="stylesheet" media="all" href="css/screen.css")
+    //- script(src="http://connect.facebook.net/en_US/sdk.js")
+    script(src="js/app.js")
+  body
+    //BEGIN out
+    .out
+      block content
+    //END out
+    //- .cap
+    //-   .cap-inner
+    //-     .image
+    //-     p Please, switch to&nbsp;the&nbsp;desktop version
+    //-     a(href="#") Switch
+    .pan-loader#pan-loader
+      span.container-rotate#rotate
+        <svg width="20" height="20">
+          <circle class="outer" cx="10" cy="10" r="8" stroke-dashoffset="50" fill="transparent" stroke="#ffffff" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="0" />
+        </svg>

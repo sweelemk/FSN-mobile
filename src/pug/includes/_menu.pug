@@ -1,0 +1,40 @@
+.page-menu
+	.scroll
+		.page-menu__lang
+			a(href="#" class="lang") eng
+			.lang рус
+		nav.menu
+			mixin menuList(link, name)
+				li(class="menu-item" class={active: name === currentClass})
+					a(class="menu-item_link ajax-trigger" href=link) #{name}
+			ul.menu-container
+				+menuList("/", "Главная")
+			ul.menu-container
+				+menuList("collection.html", "Коллекции")
+				+menuList("actions.html", "Акции")
+				+menuList("projects.html", "Проекты")
+			ul.menu-container
+				+menuList("showroom.html", "Шоурум")
+				+menuList("designers.html", "Дизайнерам")
+		.contacts-container
+			.contacts-column
+				.contacts-title Адрес
+				.contacts-text
+					p ул. Мележа 5, корп 2
+					p 9:00–19:00 в будние дни 
+						br/ 10:00–17:00 в выходные
+					p
+						a(href="#" class="goto") Как проехать
+			.contacts-column
+				.contacts-title Контакты
+				.contacts-text
+					p
+						span +375 17 237 16 07
+						span +375 17 237 16 08
+						span +375 29 111 11 76
+					p
+						a(href="#" class="mailto") info@fsn.by
+		.social-container
+			- list = ["facebook", "instagram", "linkedin"]
+			each listname in list
+				a(class="social-item" href="#" target="_blank" rel="nofollow") #{listname}

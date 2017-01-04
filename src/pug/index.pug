@@ -1,0 +1,75 @@
+extends _layout
+
+block title
+	title Index
+block content
+	.bg-color(style="background-color: #2a2a32")
+	.touch#touch
+		- var namePage = "main"
+		- var indexPage = true
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span european tile gallery
+						.content-body
+							.full-gallery.full-gallery_slider
+								.full-gallery_container
+									a.full-gallery_slide(href="")
+										.slide-name
+											span Шоурум
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+										.slide-text
+											p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
+											.cross-link
+												span о шоуруме
+									.full-gallery_slide.small-gallery
+										.slide-name
+											span Акции
+										.small-gallery_container
+											a.small-gallery_slide(href="")
+												.slide-image
+													img(src="img/slider/slide-2.jpg" data-color="#524339")
+												.slide-text
+													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
+													.cross-link
+														span Перейти к акции
+											a.small-gallery_slide(href="")
+												.slide-image
+													img(src="img/slider/slide-2.jpg" data-color="#5a2e42")
+												.slide-text
+													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
+													.cross-link
+														span Перейти к акции
+									.full-gallery_slide.small-gallery
+										.slide-name
+											span Новинки
+										.small-gallery_container
+											a.small-gallery_slide(href="")
+												.slide-image
+													img(src="img/slider/slide-2.jpg" data-color="#3e6879")
+												.slide-text
+													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
+													.cross-link
+														span Перейти к акции
+											a.small-gallery_slide(href="")
+												.slide-image
+													img(src="img/slider/slide-2.jpg" data-color="#2a3149")
+												.slide-text
+													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
+													.cross-link
+														span Перейти к акции
+					- var name = "Collections"
+					include includes/_footer
+					script(type="text/javascript").
+						var gallery = $(".full-gallery");
+						gallery = new FullGallery(gallery);
+	- var currentClass = "Главная"
+	include includes/_menu
+	//- include includes/_popup
+		

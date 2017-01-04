@@ -1,0 +1,436 @@
+*, *::after, *::before
+	box-sizing: border-box
+*
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+a 
+	text-decoration: none
+	outline: none
+	color: $black
+img 
+	display: block
+html
+	height: 100%
+	font-size: 16px
+	width: 100%
+	overflow: hidden
+body
+	font-family: $Regular
+	height: 100%
+	overflow: hidden
+	position: relative
+	width: 100%
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch;
+.bg-color
+	position: absolute
+	top: 0
+	left: 0
+	bottom: 0
+	right: 0
+	z-index: -1
+	transition: background-color 0.5s ease
+.out
+	position: relative
+	width: 100%
+	height: 100%
+.touch
+	position: relative
+	width: 100%
+	height: 100%
+.wrapper
+	position: relative
+	+rem(padding, 0 15px)
+	height: 100%
+	&::after
+		content: ''
+		height: 600px
+		background-color: rgba(0,0,0,.15)
+		position: absolute
+		bottom: -601px
+		left: 0
+		width: 100%
+.scroll
+	-webkit-touch-callout: none
+	min-height: 100%
+.content
+	position: relative
+	min-height: 100vh
+	+rem(padding, 0 0 150px 0)
+.header
+	+rem(padding, 29px 0)
+.footer
+	position: absolute
+	bottom: 0
+	left: 0
+	right: 0
+	+rem(padding-bottom, 63px)
+	.footer-text
+		+rem(padding-bottom, 25px)
+.developers
+	font-family: $Light
+	font-size: 10px
+	text-transform: uppercase
+	letter-spacing: 3px
+	color: $white
+.shared
+	float: right
+	+rem(width, 20px)
+	+rem(height, 20px)
+	.shared-btn
+		width: 100%
+		height: 100%
+		background-image: url(../img/svg/share.svg)
+		background-size: cover
+.copyright
+	display: inline-block
+	width: 100%
+	font-size: 0
+	+rem(margin, 15px 0 0)
+	.copyright-item
+		display: inline-block
+		+rem(margin-right, 14px)
+		font-family: $Light
+		font-size: 10px
+		text-transform: uppercase
+		color: $white
+		letter-spacing: 3px
+		position: relative
+		&:not(:last-child)::after
+			content: "."
+			position: absolute
+			+rem(right, -10px)
+.nav-page-button
+	position: absolute
+	bottom: -1px
+	+rem(height, 63px)
+	background-color: rgba(0,0,0,.15)
+	display: inline-block
+	text-align: center
+	+rem(left, -15px)
+	+rem(right, -15px)
+	span
+		+rem(font-size, 14px)
+		color: $white
+		+rem(line-height, 63px)
+		text-transform: uppercase
+		+rem(letter-spacing, 3px)
+.logo 
+	+rem(width, 160px)
+	+rem(height, 21px)
+	background-image: url(../img/icons/logo.png)
+	background-size: cover
+	display: inline-block
+.burger
+	position: absolute
+	+rem(top, 13px)
+	+rem(right, 18px)
+	+rem(width, 48px)
+	+rem(height, 48px)
+	background-color: $white
+	transition: background-color 0.3s ease-in-out 0.3s
+	border-radius: 100%
+	z-index: 6
+	cursor: pointer
+	.humburger
+		+rem(width, 26px)
+		+rem(height, 14px)
+		position: absolute
+		top: 50%
+		left: 50%
+		+rem(margin, -7px 0 0 -13px)
+		span
+			position: absolute
+			width: 100%
+			display: block
+			background-color: $bodyColor
+			height: 2px
+			left: 0
+			transition: width 0.3s ease-in-out
+			&:nth-child(1)
+				top: 0
+				transition-delay: .5s
+			&:nth-child(2)
+				top: 6px
+				transition-delay: .625s
+			&:nth-child(3)
+				top: 12px
+				transition-delay: .75s
+	.cross
+		+rem(width, 26px)
+		+rem(height, 28px)
+		position: absolute
+		top: 50%
+		left: 50%
+		+rem(margin, -14px 0 0 -13px)
+		transform: rotate(45deg)
+		span
+			transition: width 0.3s ease-in-out, height 0.3s ease-in-out
+			&:nth-child(1)
+				height: 0%
+				width: 2px
+				position: absolute
+				top: 0
+				left: 48%
+				transition-delay: 0s
+				background-color: $white
+			&:nth-child(2)
+				width: 0%
+				height: 2px
+				position: absolute
+				top: 48%
+				left: 0
+				transition-delay: 0.25s
+				background-color: $white
+	&.open_burger
+		background-color: $bodyColor
+		.humburger
+			span
+				width: 0
+				&:nth-child(1)
+					transition-delay: .0s
+				&:nth-child(2)
+					transition-delay: .125s
+				&:nth-child(3)
+					transition-delay: .25s
+		.cross
+			span
+				&:nth-child(1)
+					height: 100%
+					transition-delay: .625s
+				&:nth-child(2)
+					width: 100%
+					transition-delay: .375s
+.pan-loader
+	position: absolute
+	left: 0
+	right: 0
+	+rem(height, 63px)
+	+rem(bottom, -63px)
+	text-align: center
+	.container-rotate
+		position: absolute
+		top: 0%
+		left: 50%
+		width: 20px
+		height: 20px
+		margin: 0px 0 0 -10px
+		display: inline-block
+		transform-origin: 50% 50%
+		.rotate-item
+			display: block
+			border: 2px solid $black
+			+rem(width, 20px)
+			+rem(height, 20px)
+		.outer
+			transform: rotate(-90deg)
+			transform-origin: 50% 50%
+.loading
+	.touch, .pan-loader
+		transform: translate(0, -3.9375em)
+		transition: transform 0.3s ease
+	.container-rotate
+		animation: rotationContainer 0.5s linear infinite
+	.outer
+		animation: rotation 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) both
+@keyframes rotation
+	0%
+		stroke-dashoffset: 0
+	100%
+		stroke-dashoffset: 10
+
+@keyframes rotationContainer
+	0%
+		transform: rotate(0)
+	100%
+		transform: rotate(360deg)
+.page-menu
+	position: absolute
+	top: 0
+	right: 0
+	width: 100%
+	height: 100%
+	z-index: 5
+	overflow: auto
+	transition: transform 0.3s ease
+	transform: translate(100%, 0);
+	background-color: $white
+	&.open
+		transform: translate(0, 0);
+	.page-menu__lang
+		position: absolute
+		+rem(top, 25px)
+		+rem(left, 32px)
+		z-index: 2
+		.lang
+			font-family: $Light
+			+rem(font-size, 10px)
+			color: $black
+			+rem(letter-spacing, 3px)
+			text-transform: uppercase
+			display: inline-block
+			+rem(padding-right, 8px)
+	.scroll
+		+rem(padding, 0 15px 0 32px)
+	.contacts-container
+		.contacts-column
+			border-top: 1px solid rgba(42,42,50,.2)
+			+rem(padding-top, 25px)
+			+rem(margin-bottom, 25px)
+.menu
+	margin-top: 30%
+	// +rem(margin-top, 120px)
+	display: inline-block
+	width: 100%
+	.menu-container
+		margin-bottom: 7%
+		.menu-item
+			display: block
+			width: 100%
+			position: relative
+			&::after
+				content: ""
+				position: absolute
+				top: 50%
+				+rem(height, 2px)
+				background-color: $black
+				right: 0
+				+rem(margin-top, -2px)
+				transition: transform 0.3s ease
+				transform: scale(0, 0)
+				+rem(width, 78px)
+			&:hover, &.active
+				&::after
+					transform: scale(1)
+			a
+				font-family: "Light"
+				+rem(font-size, 30px)
+				color: $black
+				display: block
+				width: 100%
+.contacts-container
+	display: inline-block
+	width: 80%
+	margin-top: 10%
+	+clr
+	.contacts-column
+		font-family: "Light"
+		font-size: 12px
+		color: $black
+		text-transform: uppercase
+		+rem(letter-spacing, 3px)
+		.contacts-title
+			color: $grey
+			+rem(margin-bottom, 20px)
+		.contacts-text
+			p
+				+rem(margin-bottom, 10px)
+			span
+				display: block
+.social-container
+	display: inline-block
+	overflow: hidden
+	+rem(margin, 20px 0 40px -10px)
+	.social-item
+		display: inline-block
+		font-family: $Light
+		+rem(font-size, 12px)
+		text-transform: uppercase
+		color: $black
+		+rem(letter-spacing, 3px)
+		&:not(:last-of-type)
+			+rem(margin-right, 25px)
+.content-wrapper
+	+rem(margin-top, 50px)
+	.content-head, .content-body
+		+rem(margin-bottom, 35px)
+.head-container
+	span
+		font-family: "DemiBold"
+		+rem(font-size, 42px)
+		text-transform: uppercase
+		display: block
+		+rem(line-height, 42px)
+		color: $white
+.full-gallery
+	position: relative
+	width: 100%
+	height: 100%
+	.full-gallery_slide, .small-gallery_slide
+		position: relative
+		width: 100%
+		+rem(margin-bottom, 40px)
+		display: block
+		&.current
+			.slide-name
+				&::after
+					transform: scale(1)
+		.slide-name
+			display: inline-block
+			position: relative
+			width: 100%
+			+rem(padding-right, 120px)
+			+rem(margin-bottom, 30px)
+			&::after
+				content: ""
+				position: absolute
+				top: 50%
+				+rem(height, 2px)
+				background-color: $white
+				right: 0
+				+rem(margin-top, -2px)
+				transition: transform 0.3s ease
+				transform: scale(0, 0)
+				+rem(width, 118px)
+			span
+				+rem(font-size, 22px)
+				color: rgba(255,255,255,.3)
+		.slide-image
+			position: relative
+			&::after
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				bottom: 0
+				background-color: #545251
+				opacity: 0.5
+			img
+				max-width: 100%
+		.slide-text
+			padding-left: 10%
+			padding-right: 5%
+			+rem(margin-top, -55px)
+			position: relative
+			z-index: 2
+			p
+				font-family: $Light
+				+rem(font-size, 20px)
+				+rem(line-height, 28px)
+				color: $milk
+	.small-gallery_slide
+		transform: scale(0.9)
+		transition: transform 0.5s ease
+		&.slick-active
+			transform: scale(1)
+.cross-link
+	+rem(padding-left, 45px)
+	display: inline-block
+	position: relative
+	+rem(margin, 10px 0)
+	&::after
+		content: ""
+		+rem(width, 30px)
+		+rem(height, 30px)
+		background-image: url(../img/svg/plus.svg)
+		background-size: cover
+		position: absolute
+		left: 0
+		top: 0
+	span
+		font-family: $Light
+		+rem(font-size, 12px)
+		text-transform: uppercase
+		color: $white
+		+rem(line-height, 32px)
+		+rem(letter-spacing, 3px)
