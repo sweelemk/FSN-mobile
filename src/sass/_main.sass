@@ -408,11 +408,27 @@ body
 				+rem(font-size, 20px)
 				+rem(line-height, 28px)
 				color: $milk
+			.name
+				font-family: $Light
+				+rem(font-size, 28px)
+				+rem(line-height, 28px)
+				color: $milk
+				+rem(margin-bottom, 10px)
+			.info
+				font-family: $Light
+				+rem(font-size, 10px)
+				color: $white
+				text-transform: uppercase
+				+rem(letter-spacing, 3px)
 	.small-gallery_slide
 		transform: scale(0.9)
 		transition: transform 0.5s ease
 		&.slick-active
 			transform: scale(1)
+.full-gallery_slider-collection
+	.full-gallery_slide
+		.slide-text
+			+rem(margin-top, -30px)
 .cross-link
 	+rem(padding-left, 45px)
 	display: inline-block
@@ -434,3 +450,25 @@ body
 		color: $white
 		+rem(line-height, 32px)
 		+rem(letter-spacing, 3px)
+.filter-container
+	+rem(margin-bottom, 30px)
+	width: 100%
+	.filter-head
+		position: relative
+		&::after
+			content: ""
+			position: absolute
+			+rem(width, 14px)
+			+rem(height, 14px)
+			border-top: 1px solid $milk
+			border-right: 1px solid $milk
+			transform: rotate(-45deg)
+			top: 50%
+			+rem(margin-top, -3px)
+			+rem(right, 10px)
+		span
+			+rem(font-size, 22px)
+			color: $milk
+			opacity: 0.3
+			border-bottom: 1px dotted
+			display: inline-block

@@ -42,11 +42,12 @@ customScroll.prototype.scrollToElement = function (y) {
 }
 
 customScroll.prototype.endscroll = function() {
-	var self = this,
-		pos;
-	this.scroll.on("scroll", gallery.scrollValue);	
-	this.scroll.on("scrollEnd", gallery.scrollValue);
-	
+	var self = this;
+
+	if(typeof gallery !== "undefined") {
+		this.scroll.on("scroll", gallery.scrollValue);
+		this.scroll.on("scrollEnd", gallery.scrollValue);
+	}
 }
 
 

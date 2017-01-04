@@ -1,0 +1,53 @@
+extends _layout
+
+block title
+	title Collections
+block content
+	.bg-color(style="background-color: #2a2a32")
+	.touch#touch
+		- var namePage = "collections"
+		- var indexPage = true
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span Коллекция
+						.content-body
+							.filter-container
+								.filter-head.filter-trigger
+									span Фильтр
+								.filter-body
+									.filter-body_inner.filter-body_action
+										form(class="form-filter" action="")
+											.field-row
+												.field-head
+													input(type="checkbox" name="collection-country" id="country")
+													label(for="country")
+														span Кантри
+							.full-gallery.full-gallery_slider.full-gallery_slider-collection
+								.full-gallery_container
+									a.full-gallery_slide(href="")
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#3f3b35")
+										.slide-text
+											.name FAP, Roma
+											.info от €60 м2
+									a.full-gallery_slide(href="")
+										.slide-image
+											img(src="img/slider/slide-2.jpg" data-color="#627f6e")
+										.slide-text
+											.name FAP, Roma
+											.info от €60 м2
+					- var name = "Projects"
+					include includes/_footer
+					script(type="text/javascript").
+						var gallery = $(".full-gallery");
+						gallery = new FullGallery(gallery);
+	- var currentClass = "Коллекции"
+	include includes/_menu
+	//- include includes/_popup
+		
