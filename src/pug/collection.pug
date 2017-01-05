@@ -6,7 +6,7 @@ block content
 	.bg-color(style="background-color: #2a2a32")
 	.touch#touch
 		- var namePage = "collections"
-		- var indexPage = true
+		- var indexPage = false
 		include includes/_burger
 		.wrapper
 			.scroll#out
@@ -17,17 +17,43 @@ block content
 							.head-container
 								span Коллекция
 						.content-body
-							.filter-container
+							.filter-container.filter
 								.filter-head.filter-trigger
 									span Фильтр
 								.filter-body
 									.filter-body_inner.filter-body_action
-										form(class="form-filter" action="")
+										form(class="form-filter" action="/collection/" id="filter")
 											.field-row
-												.field-head
-													input(type="checkbox" name="collection-country" id="country")
+												.field-body
+													input(type="checkbox" name="collection" id="country" value="country")
 													label(for="country")
 														span Кантри
+											.field-row
+												.field-body
+													input(type="checkbox" name="collection" id="modern" value="modern")
+													label(for="modern")
+														span Современная
+											.field-row
+												.field-body
+													input(type="checkbox" name="collection" id="clinker" value="clinker")
+													label(for="clinker")
+														span Клинкерная
+											.field-row
+												.field-body
+													input(type="checkbox" name="collection" id="minimal" value="minimal")
+													label(for="minimal")
+														span Минимализм
+											.field-row
+												.field-body
+													input(type="checkbox" name="collection" id="mosaic" value="mosaic")
+													label(for="mosaic")
+														span Мозаика
+											.field-row
+												.field-body
+													button(type="submit" class="form-submit")
+														span Применить
+													button(type="reset" class="form-reset")
+														span очистить
 							.full-gallery.full-gallery_slider.full-gallery_slider-collection
 								.full-gallery_container
 									a.full-gallery_slide(href="")
@@ -47,6 +73,8 @@ block content
 					script(type="text/javascript").
 						var gallery = $(".full-gallery");
 						gallery = new FullGallery(gallery);
+						var filter = $(".filter");
+						filter = new Filter(filter);
 	- var currentClass = "Коллекции"
 	include includes/_menu
 	//- include includes/_popup

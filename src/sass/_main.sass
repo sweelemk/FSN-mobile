@@ -8,6 +8,8 @@ a
 	color: $black
 img 
 	display: block
+button
+	background-color: transparent
 html
 	height: 100%
 	font-size: 16px
@@ -455,6 +457,7 @@ body
 	width: 100%
 	.filter-head
 		position: relative
+		+rem(margin-bottom, 10px)
 		&::after
 			content: ""
 			position: absolute
@@ -466,9 +469,67 @@ body
 			top: 50%
 			+rem(margin-top, -3px)
 			+rem(right, 10px)
+			transition: transform 0.3s ease
 		span
 			+rem(font-size, 22px)
 			color: $milk
 			opacity: 0.3
 			border-bottom: 1px dotted
 			display: inline-block
+		&.open
+			&::after
+				transform: rotate(-225deg)
+	.filter-body_inner
+		display: none
+	.field-row
+		.field-body
+			position: relative
+			width: 100%
+			input
+				position: absolute
+				opacity: 0
+				visibility: hidden
+				&:checked
+					& + label
+						&::after
+							opacity: 1
+							visibility: visible
+						span
+							color: $white
+			label
+				width: 100%
+				display: inline-block
+				position: relative
+				+rem(padding, 5px 0)
+				&::after
+					content: ""
+					+rem(width, 4px)
+					+rem(height, 4px)
+					border-radius: 100%
+					background-color: $white
+					position: absolute
+					+rem(right, 14px)
+					opacity: 0
+					visibility: hidden
+					top: 50%
+					+rem(margin-top, -2px)
+					transition: opacity 0.3s ease, visibility 0.3s ease
+				span
+					+rem(font-size, 18px)
+					color: $middleGrey
+					transition: color 0.3s ease
+			button
+				+rem(width, 132px)
+				+rem(height, 44px)
+				+rem(margin, 25px 0 10px)
+				&.form-submit
+					border: 2px solid $white
+				&.form-reset
+					float: right
+					text-align: right
+				span
+					font-family: $Light
+					+rem(font-size, 12px)
+					text-transform: uppercase
+					+rem(letter-spacing, 3px)
+					color: $white

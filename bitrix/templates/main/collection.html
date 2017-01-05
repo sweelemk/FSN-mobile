@@ -23,23 +23,52 @@
         <div class="wrapper">
           <div class="scroll" id="out">
             <div class="content content-collections" data-page="collections">
-              <header class="header">
-                <div class="logo"></div>
+              <header class="header"><a class="logo" href="/"></a>
               </header>
               <div class="content-wrapper">
                 <div class="content-head">
                   <div class="head-container"><span>Коллекция</span></div>
                 </div>
                 <div class="content-body">
-                  <div class="filter-container">
+                  <div class="filter-container filter">
                     <div class="filter-head filter-trigger"><span>Фильтр</span></div>
                     <div class="filter-body">
                       <div class="filter-body_inner filter-body_action">
-                        <form class="form-filter" action="">
+                        <form class="form-filter" action="/collection/" id="filter">
                           <div class="field-row">
-                            <div class="field-head">
-                              <input type="checkbox" name="collection-country" id="country">
+                            <div class="field-body">
+                              <input type="checkbox" name="collection" id="country" value="country">
                               <label for="country"><span>Кантри</span></label>
+                            </div>
+                          </div>
+                          <div class="field-row">
+                            <div class="field-body">
+                              <input type="checkbox" name="collection" id="modern" value="modern">
+                              <label for="modern"><span>Современная</span></label>
+                            </div>
+                          </div>
+                          <div class="field-row">
+                            <div class="field-body">
+                              <input type="checkbox" name="collection" id="clinker" value="clinker">
+                              <label for="clinker"><span>Клинкерная</span></label>
+                            </div>
+                          </div>
+                          <div class="field-row">
+                            <div class="field-body">
+                              <input type="checkbox" name="collection" id="minimal" value="minimal">
+                              <label for="minimal"><span>Минимализм</span></label>
+                            </div>
+                          </div>
+                          <div class="field-row">
+                            <div class="field-body">
+                              <input type="checkbox" name="collection" id="mosaic" value="mosaic">
+                              <label for="mosaic"><span>Мозаика</span></label>
+                            </div>
+                          </div>
+                          <div class="field-row">
+                            <div class="field-body">
+                              <button class="form-submit" type="submit"><span>Применить</span></button>
+                              <button class="form-reset" type="reset"><span>очистить</span></button>
                             </div>
                           </div>
                         </form>
@@ -77,6 +106,8 @@
               <script type="text/javascript">
                 var gallery = $(".full-gallery");
                 gallery = new FullGallery(gallery);
+                var filter = $(".filter");
+                filter = new Filter(filter);
               </script>
             </div>
           </div>
