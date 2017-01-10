@@ -56,25 +56,35 @@ block content
 														span очистить
 							.full-gallery.full-gallery_slider.full-gallery_slider-collection
 								.full-gallery_container
-									a.full-gallery_slide(href="")
-										.slide-image
-											img(src="img/slider/slide-1.jpg" data-color="#3f3b35")
-										.slide-text
-											.name FAP, Roma
-											.info от €60 м2
-									a.full-gallery_slide(href="")
-										.slide-image
-											img(src="img/slider/slide-2.jpg" data-color="#627f6e")
-										.slide-text
-											.name FAP, Roma
-											.info от €60 м2
-					- var name = "Projects"
+									mixin gallery(href, image, color, name, price)
+										a.full-gallery_slide.ajax-trigger(href=href)
+											.slide-image
+												img(src=image, data-color=color)
+											.slide-text
+												.name #{name}
+												.info #{price}
+									+gallery("#", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
+									+gallery("#", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "от €60 м2")
+							- var ajax = false;
+							- var link = "collection.html"
+							include includes/_pagination
+					- var name = "projects"
 					include includes/_footer
 					script(type="text/javascript").
 						var gallery = $(".full-gallery");
 						gallery = new FullGallery(gallery);
 						var filter = $(".filter");
 						filter = new Filter(filter);
+						var pagin = $(".pagination");
+						pagin = new Pagination(pagin, {
+							appendContainer: ".full-gallery_slider-collection"
+						})
 	- var currentClass = "Коллекции"
 	include includes/_menu
 	//- include includes/_popup

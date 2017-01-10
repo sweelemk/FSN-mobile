@@ -76,17 +76,61 @@
                     </div>
                   </div>
                   <div class="full-gallery full-gallery_slider full-gallery_slider-collection">
-                    <div class="full-gallery_container"><a class="full-gallery_slide" href="">
-                        <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#3f3b35"></div>
-                        <div class="slide-text">
-                          <div class="name">FAP, Roma</div>
-                          <div class="info">от €60 м2</div>
-                        </div></a><a class="full-gallery_slide" href="">
-                        <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#627f6e"></div>
-                        <div class="slide-text">
-                          <div class="name">FAP, Roma</div>
-                          <div class="info">от €60 м2</div>
-                        </div></a></div>
+                    <div class="full-gallery_container"><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#3f3b35"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#615f6e"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#434344"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#627f6e"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#3f3b35"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#e6bace"></div>
+                                              <div class="slide-text">
+                                                <div class="name">FAP, Roma</div>
+                                                <div class="info">от €60 м2</div>
+                                              </div></a>
+                    </div>
+                  </div>
+                  <div class="pagination">
+                    <div class="pagination-inner">
+                      <div class="pagination-item pagination-item__left"><a class="trigger" href="collection.html" id="prev"><span><svg viewBox="0 0 8.1 14.9" xmlns="http://www.w3.org/2000/svg"><path id="svg_1" d="m3.4,0.9l1,0l0,14l-1,0l0,-14" clip-rule="evenodd" fill-rule="evenodd"/><path id="svg_2" d="m0.7,4.7l-0.7,-0.6l3.9,-4.1l0.7,0.7l-3.9,4" clip-rule="evenodd" fill-rule="evenodd"/><path id="svg_3" d="m3.2,0.7l0.7,-0.7l4.2,4l-0.7,0.7l-4.2,-4" clip-rule="evenodd" fill-rule="evenodd"/></svg></span></a></div>
+                      <div class="pagination-counter">
+                        <div class="pagination-counter__inner">
+                          <div class="pagination-current"> <span class="current">01</span></div>
+                          <div class="pagination-spacer">/</div>
+                          <div class="pagination-all">04</div>
+                        </div>
+                      </div>
+                      <div class="pagination-item pagination-item__right"><a class="trigger" href="collection.html" id="next"><span><svg viewBox="0 0 8.1 14.9" xmlns="http://www.w3.org/2000/svg"><path id="svg_1" d="m4.7,14l-1,0l0,-14l1,0l0,14" clip-rule="evenodd" fill-rule="evenodd"/><path id="svg_2" d="m7.4,10.2l0.7,0.7l-3.9,4.1l-0.7,-0.7l3.9,-4.1" clip-rule="evenodd" fill-rule="evenodd"/><path id="svg_3" d="m4.9,14.1l-0.7,0.7l-4.2,-4l0.7,-0.7l4.2,4" clip-rule="evenodd" fill-rule="evenodd"/></svg></span></a></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -101,13 +145,17 @@
                     <div class="copyright-item">terms of use</div>
                   </div>
                 </div>
-                <div class="nav-page-button" data-href="Projects"><span>Pull up to Projects</span></div>
+                <div class="nav-page-button" data-href="projects.html"><span>Pull up to projects</span></div>
               </footer>
               <script type="text/javascript">
                 var gallery = $(".full-gallery");
                 gallery = new FullGallery(gallery);
                 var filter = $(".filter");
                 filter = new Filter(filter);
+                var pagin = $(".pagination");
+                pagin = new Pagination(pagin, {
+                	appendContainer: ".full-gallery_slider-collection"
+                })
               </script>
             </div>
           </div>
@@ -159,4 +207,12 @@
 <circle class="outer" cx="10" cy="10" r="8" stroke-dashoffset="50" fill="transparent" stroke="#ffffff" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="0" />
 </svg></span></div>
   </body>
+  <div class="revealer">
+    <div class="revealer__layer" style="background-color:#524e4b"></div>
+    <div class="revealer__layer" style="background-color:#2a2a32"></div>
+  </div>
 </html>
+<script type="text/javascript">
+  var revealer = new Revealer($(".revealer"));
+    revealer.init();
+</script>
