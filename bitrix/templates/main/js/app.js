@@ -2449,6 +2449,10 @@ function mobileMenu() {
 				_this.closeMenu();
 			}
 		});
+		link.on("click", function(){
+			_this.triggerLink($(this));
+			return false;
+		});
 	}
 
 	_this.openMenu = function() {
@@ -2474,7 +2478,11 @@ function mobileMenu() {
 
 		setTimeout(function(){
 			_this.closeMenu();
+			setTimeout(function(){
+				loading($this.attr("href"));
+			}, 500);
 		},300);
+		return false;
 	}
 };
 

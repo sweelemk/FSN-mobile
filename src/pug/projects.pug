@@ -1,0 +1,91 @@
+extends _layout
+
+block title
+	title Projects
+block content
+	.bg-color(style="background-color: #2a2a32")
+	.touch#touch
+		- var namePage = "projects"
+		- var indexPage = false
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span Проекты
+						.content-body
+							.filter-container.filter
+								.filter-head.filter-trigger
+									span Фильтр
+								.filter-body
+									.filter-body_inner.filter-body_action
+										form(class="form-filter" action="/projects/" id="filter")
+											.field-row
+												.field-body
+													input(type="checkbox" name="projects" id="cottage" value="cottage")
+													label(for="cottage")
+														span Коттеджи
+											.field-row
+												.field-body
+													input(type="checkbox" name="projects" id="office" value="office")
+													label(for="office")
+														span Офисы
+											.field-row
+												.field-body
+													input(type="checkbox" name="projects" id="private-houses" value="private-houses")
+													label(for="private-houses")
+														span Частные дома
+											.field-row
+												.field-body
+													input(type="checkbox" name="projects" id="business-center" value="business-center")
+													label(for="business-center")
+														span Бизнес-центры
+											.field-row
+												.field-body
+													input(type="checkbox" name="projects" id="showroom" value="showroom")
+													label(for="showroom")
+														span Шоурум
+											.field-row
+												.field-body
+													button(type="submit" class="form-submit")
+														span Применить
+													button(type="reset" class="form-reset")
+														span очистить
+							.full-gallery.full-gallery_slider.full-gallery_slider-collection
+								.full-gallery_container
+									mixin gallery(href, image, color, name, price)
+										a.full-gallery_slide.ajax-trigger(href=href)
+											.slide-image
+												img(src=image, data-color=color)
+											.slide-text
+												.name #{name}
+												.info #{price}
+									+gallery("#", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "Минск")
+									+gallery("#", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "Минск")
+							- var ajax = false;
+							- var link = "projects.html"
+							include includes/_pagination
+					- var name = "showroom"
+					include includes/_footer
+					script(type="text/javascript").
+						var gallery = $(".full-gallery");
+						gallery = new FullGallery(gallery);
+						var filter = $(".filter");
+						filter = new Filter(filter);
+						var pagin = $(".pagination");
+						pagin = new Pagination(pagin, {
+							appendContainer: ".full-gallery_slider-collection"
+						})
+	- var currentClass = "Проекты"
+	include includes/_menu
+	//- include includes/_popup
+		
