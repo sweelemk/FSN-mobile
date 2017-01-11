@@ -76,42 +76,42 @@
                     </div>
                   </div>
                   <div class="full-gallery full-gallery_slider full-gallery_slider-collection">
-                    <div class="full-gallery_container"><a class="full-gallery_slide ajax-trigger" href="#">
+                    <div class="full-gallery_container"><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#3f3b35"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#615f6e"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#434344"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#627f6e"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#3f3b35"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">от €60 м2</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/collection-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#e6bace"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
@@ -148,8 +148,8 @@
                 <div class="nav-page-button" data-href="projects.html"><span>Pull up to projects</span></div>
               </footer>
               <script type="text/javascript">
-                var gallery = $(".full-gallery");
-                gallery = new FullGallery(gallery);
+                var gallerys = $(".full-gallery");
+                var gallery = new FullGallery(gallerys);
                 var filter = $(".filter");
                 filter = new Filter(filter);
                 var pagin = $(".pagination");
@@ -201,6 +201,42 @@
           </div>
         </div>
       </div>
+      <div class="modal__wrapper" data-modal-popup="request">
+        <div class="scroll">
+          <div class="form-container">
+            <div class="form-container_front">
+              <div class="form-head">Получить консультацию</div>
+              <form class="modal-form js-validation" action="">
+                <div class="field">
+                  <label for="name"><span>Ваше имя</span></label>
+                  <input type="text" data-error-msg="Пожалуйста, введите ваше имя">
+                </div>
+                <div class="field">
+                  <label for="name"><span>Ваш телефон</span></label>
+                  <input type="text">
+                </div>
+                <div class="field">
+                  <label for="name"><span>Ваш e-mail</span></label>
+                  <input type="text">
+                </div>
+                <div class="field">
+                  <button class="btn" type="submit"><span>Отправить</span></button>
+                </div>
+              </form>
+            </div>
+            <div class="form-container_back">
+              <div class="form-head">Спасибо!</div>
+              <div class="text-container">
+                <p>Форма успешно отправлена! Через некоторое время мы свяжемся с Вами.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        var modal = new Form();
+        	modal.init();
+      </script>
     </div>
     <!--END out-->
     <div class="pan-loader" id="pan-loader"><span class="container-rotate" id="rotate"><svg width="20" height="20">

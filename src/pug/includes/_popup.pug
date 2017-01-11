@@ -1,29 +1,25 @@
-.modal__wrapper(data-modal-popup="order")
+.modal__wrapper(data-modal-popup="request")
 	.scroll
-		.close
-			div
-				span
-				span
-		.modal-container
-			form.form-container
-				.field
-					.field-head
-						span.number #01
-						span First-name
-					.field-body
+		.form-container
+			.form-container_front
+				.form-head Получить консультацию
+				form(action="" class="modal-form js-validation")
+					.field
+						label(for="name")
+							span Ваше имя
+						input(type="text" data-error-msg="Пожалуйста, введите ваше имя")
+					.field
+						label(for="name")
+							span Ваш телефон
 						input(type="text")
-				.field
-					.field-head
-						span.number #02
-						span Phone
-					.field-body
-						input(type="phone")
-				.field
-					.field-head 
-						span.number #03
-						span Mail
-					.field-body
-						input(type="email")
-				.field
-					button(class="btn btn-white" type="submit")
-						span Send
+					.field
+						label(for="name")
+							span Ваш e-mail
+						input(type="text")
+					.field
+						button(class="btn" type="submit")
+							span Отправить
+			.form-container_back
+				.form-head Спасибо!
+				.text-container
+					p Форма успешно отправлена! Через некоторое время мы свяжемся с Вами.

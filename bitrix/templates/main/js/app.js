@@ -2242,22 +2242,21 @@ customScroll.prototype.scrollToElementTime = function (y, time) {
 
 customScroll.prototype.endscroll = function() {
 	var self = this;
-
-	if(typeof gallery !== "undefined") {
-		this.scroll.on("scroll", gallery.scrollValue);
-		this.scroll.on("scrollEnd", gallery.scrollValue);
-	}
+	// if(typeof gallery !== "undefined") {
+	// 	this.scroll.on("scroll", gallery.scrollValue);
+	// 	this.scroll.on("scrollEnd", gallery.scrollValue);
+	// }
 }
 
 
 var mainScroll = ".wrapper",
 	scrollPopup = ".page-menu",
-	// scrollModal = ".modal__wrapper",
+	scrollModal = ".modal__wrapper",
 	mainScrollInit, scrollPopupInit, scrollModalInit, burger;
 window.onload =  function(){
 	mainScrollInit = new customScroll(mainScroll);
 	scrollPopupInit = new customScroll(scrollPopup);
-	// scrollModalInit = new customScroll(scrollModal);
+	scrollModalInit = new customScroll(scrollModal);
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	var pull = new PullMobile;
 	pull.init();
@@ -2443,6 +2442,9 @@ function mobileMenu() {
 
 	_this.initEvent = function(){
 		trigger.on("click", function(){
+			if($(this).hasClass("modal")) {
+				return false;
+			}
 			if(!$(this).hasClass("open")) {
 				_this.openMenu();
 			} else {
@@ -2459,7 +2461,7 @@ function mobileMenu() {
 		trigger.addClass("open open_burger");
 		container.addClass("open");
 		scroll.attr("style", "overflow: hidden");
-		mainScrollInit.destroy();
+		// mainScrollInit.destroy();
 	}
 
 	_this.closeMenu = function() {
@@ -2467,8 +2469,8 @@ function mobileMenu() {
 		trigger.removeClass("open open_burger");
 		container.removeClass("open");
 		scroll.removeAttr("style")
-		mainScrollInit.init();
-		mainScrollInit.scrollToElement(posY);
+		// mainScrollInit.init();
+		// mainScrollInit.scrollToElement(posY);
 	}
 
 	_this.triggerLink = function(item){
@@ -2502,7 +2504,7 @@ FullGallery.prototype = {
 	initVariables: function(){
 		var self = this;
 		this.mainColorContainer = $(".bg-color");
-		this.init();
+		// this.init();
 		
 		if(this.smallGalleryEl.length) {
 			this.smallGallery();
@@ -2534,8 +2536,9 @@ FullGallery.prototype = {
 	},
 	scrollValue: function(){
 		var self = this;
-
-		(!window.requestAnimationFrame) ? setTimeout(gallery.updateSections(-self.y), 300) : window.requestAnimationFrame(function(){gallery.updateSections(-self.y)});
+		
+		// (!window.requestAnimationFrame) ? setTimeout(gallery.updateSections(-self.y), 300) : window.requestAnimationFrame(function(){gallery.updateSections(-self.y)});
+		
 	},
 	updateSections: function(posTop) {
 		var self = this;
@@ -2719,6 +2722,10 @@ function loading(link) {
 					mainScrollInit.scrollUp();
 					mainScrollInit.update();
 					_this.endAnimation();
+					// $(".bg-color").css("background-color", bodyColor);
+					// if($(".full-galley").length){
+					// 	gallery.update();
+					// }					
 				});
 			}, 700);
 		}
@@ -2779,7 +2786,7 @@ Pagination.prototype = {
 				
 				setTimeout(function(){
 					$(self.options.appendContainer).html(that.cont).promise().done(function(){
-						gallery.update();
+						// gallery.update();
 						mainScrollInit.update();
 						$(self.options.appendContainer).removeClass("load");
 						$(self.el).find(self.default.paginCurrent).html(that.nextCurr);
@@ -2787,5 +2794,144 @@ Pagination.prototype = {
 				}, 1500);					
 			}
 		})
+	}
+}
+function triggerLink(){
+	$("body").on("click", ".ajax-trigger", function(e) {
+		loading($(this));
+		return false;
+	});
+}
+$(document).ready(function(){
+	triggerLink();
+})
+
+function Form(){
+	var _this = this;
+
+	_this.initEvents = function(){
+		$("body").on("click", "[data-modal]", function(event){
+			var _ = $(this),
+				_data = _.data("modal");
+
+			_this.openModal(_data);
+			event.preventDefault();
+			return false;
+		});
+		_this.burger.on("click", function(){
+			_this.closeModal();
+			if($(".js-validation").length) {
+				valid.options.onReset($(".js-validation"));
+			}
+		});
+	};
+
+	_this.openModal = function(data){
+		var modal = $("[data-modal-popup='" + data + "']");
+
+		modal.addClass("open");
+		_this.burger.addClass("modal open_burger");
+
+		// mainScrollInit.destroy();
+	};
+
+	_this.closeModal = function(){
+		_this.modal.removeClass("open");
+		_this.burger.removeClass("open_burger");
+		// mainScrollInit.init();
+		setTimeout(function(){
+			_this.burger.removeClass("modal");
+		},300);
+	}
+
+	_this.init = function(){
+		_this.burger = $(".burger");
+		_this.modal = $(".modal__wrapper");
+
+		_this.initEvents();
+	}
+}
+if(typeof Validation == "undefined") {
+	function Validation(el, options){
+		this.el = el;
+		this.options = extend( {}, this.options );
+		extend( this.options, options );
+		this.init();
+	};
+	Validation.prototype.options = {
+		onSubmit : function() {
+			return false;
+		},
+		onReset: function(form){
+			return false;
+		}
+	};
+
+	Validation.prototype = {
+		init: function(){
+			this.input = this.el.find("input");
+			this.submit = this.el.find("[type='submit']");
+
+			this.initEvents();
+		},
+		checkInput: function(input){
+			if(input.val() != "") {
+				input.removeClass("empty");
+			} else {
+				input.addClass("empty");
+			}
+		},
+		showErrorMsg: function(input){
+			var self = this;
+			if(input.hasClass("empty")){
+				var msg = input.data("error-msg");
+				if(!msg){
+					msg = self.options.errorMsg
+				}
+				input.parent().append("<span class='error-msg'>" + msg + "</span>")
+			} else {
+				input.parent().find(".error-msg").remove();
+			}
+			scrollPopupInit.update();
+		},
+		valid: function(input){
+			var self = this;
+			this.size = this.el.find(".empty").length;
+
+			if(this.size > 0) {
+				this.el.addClass("validation-error").removeClass("validation-success");
+			} else {
+				this.el.addClass("validation-success").removeClass("validation-error");
+			}
+		},
+		resetForm: function(){
+			this.input.removeClass("empty");
+			this.input.parent().find(".error-msg").remove();
+		},
+		initEvents: function(){
+			var self = this;
+			this.input.on("input", function(){
+				self.checkInput($(this));
+				self.valid($(this));
+			});
+			this.input.on("blur", function(){
+				self.checkInput($(this));
+				self.showErrorMsg($(this));
+				self.valid($(this));
+			});
+
+			this.submit.on("click", function(e){
+				self.input.each(function(){
+					self.checkInput($(this));
+					self.showErrorMsg($(this));
+					self.valid($(this));
+				});
+				if(self.el.hasClass("validation-success")) {
+					self.options.onSubmit();
+				}
+				e.preventDefault();
+				return false;
+			});
+		}
 	}
 }

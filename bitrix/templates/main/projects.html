@@ -201,6 +201,42 @@
           </div>
         </div>
       </div>
+      <div class="modal__wrapper" data-modal-popup="request">
+        <div class="scroll">
+          <div class="form-container">
+            <div class="form-container_front">
+              <div class="form-head">Получить консультацию</div>
+              <form class="modal-form js-validation" action="">
+                <div class="field">
+                  <label for="name"><span>Ваше имя</span></label>
+                  <input type="text" data-error-msg="Пожалуйста, введите ваше имя">
+                </div>
+                <div class="field">
+                  <label for="name"><span>Ваш телефон</span></label>
+                  <input type="text">
+                </div>
+                <div class="field">
+                  <label for="name"><span>Ваш e-mail</span></label>
+                  <input type="text">
+                </div>
+                <div class="field">
+                  <button class="btn" type="submit"><span>Отправить</span></button>
+                </div>
+              </form>
+            </div>
+            <div class="form-container_back">
+              <div class="form-head">Спасибо!</div>
+              <div class="text-container">
+                <p>Форма успешно отправлена! Через некоторое время мы свяжемся с Вами.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        var modal = new Form();
+        	modal.init();
+      </script>
     </div>
     <!--END out-->
     <div class="pan-loader" id="pan-loader"><span class="container-rotate" id="rotate"><svg width="20" height="20">

@@ -63,22 +63,22 @@ block content
 											.slide-text
 												.name #{name}
 												.info #{price}
-									+gallery("#", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
-									+gallery("#", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "от €60 м2")
+									+gallery("/collection-inner.html", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "от €60 м2")
 							- var ajax = false;
 							- var link = "collection.html"
 							include includes/_pagination
 					- var name = "projects"
 					include includes/_footer
 					script(type="text/javascript").
-						var gallery = $(".full-gallery");
-						gallery = new FullGallery(gallery);
+						var gallerys = $(".full-gallery");
+						var gallery = new FullGallery(gallerys);
 						var filter = $(".filter");
 						filter = new Filter(filter);
 						var pagin = $(".pagination");
@@ -87,5 +87,8 @@ block content
 						})
 	- var currentClass = "Коллекции"
 	include includes/_menu
-	//- include includes/_popup
+	include includes/_popup
+	script(type="text/javascript").
+		var modal = new Form();
+			modal.init();
 		
