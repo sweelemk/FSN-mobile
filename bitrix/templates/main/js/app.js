@@ -2722,7 +2722,7 @@ function loading(link) {
 					mainScrollInit.scrollUp();
 					mainScrollInit.update();
 					_this.endAnimation();
-					// $(".bg-color").css("background-color", bodyColor);
+					$(".bg-color").css("background-color", bodyColor);
 					// if($(".full-galley").length){
 					// 	gallery.update();
 					// }					
@@ -2820,7 +2820,7 @@ function Form(){
 		});
 		_this.burger.on("click", function(){
 			_this.closeModal();
-			if($(".js-validation").length) {
+			if($(".js-validation").hasClass("validation-success") || $(".js-validation").hasClass("validation-error")) {
 				valid.options.onReset($(".js-validation"));
 			}
 		});
@@ -2933,5 +2933,53 @@ if(typeof Validation == "undefined") {
 				return false;
 			});
 		}
+	}
+};
+
+function AccordionGallery(el){
+	this.el = el;
+
+	this.option = {
+		defaultText: "Подробнее",
+		openText: "Скрыть"
+	}
+
+	this.init();
+}
+AccordionGallery.prototype = {
+	init: function(){
+		this.showMore = this.el.find(".cross-link");
+
+		this.initEvents();
+	},
+	initEvents: function(){
+		var self = this;
+		this.showMore.on("click", function(){
+			if($(this).hasClass("open")){
+				self.closeBox($(this))
+			} else {
+				self.openBox($(this))
+			}
+		});
+	},
+	openBox: function(item){
+		var  self = this;
+		$(item).parent().find(".hidden-box").slideDown({
+			duration: 350,
+			complete: function(){
+				mainScrollInit.update();
+				$(item).addClass("open").find("span").text(self.option.openText);
+			}
+		});
+	},
+	closeBox: function(item){
+		var  self = this;
+		$(item).parent().find(".hidden-box").slideUp({
+			duration: 350,
+			complete: function(){
+				mainScrollInit.update();
+				$(item).removeClass("open").find("span").text(self.option.defaultText);
+			}
+		});
 	}
 }

@@ -63,14 +63,14 @@ block content
 											.slide-text
 												.name #{name}
 												.info #{price}
-									+gallery("#", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "Минск")
-									+gallery("#", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-1.jpg", "#3f3b35", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-2.jpg", "#615f6e", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-3.jpg", "#434344", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-4.jpg", "#627f6e", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-1.jpg", "#2a2a32", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-2.jpg", "#524339", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-3.jpg", "#3f3b35", "FAP, Roma", "Минск")
+									+gallery("/project-inner.html", "img/slider/slide-4.jpg", "#e6bace", "FAP, Roma", "Минск")
 							- var ajax = false;
 							- var link = "projects.html"
 							include includes/_pagination
@@ -91,4 +91,20 @@ block content
 	script(type="text/javascript").
 		var modal = new Form();
 			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
 		

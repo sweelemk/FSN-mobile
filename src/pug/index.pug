@@ -32,14 +32,14 @@ block content
 										.slide-name
 											span Акции
 										.small-gallery_container
-											a.small-gallery_slide(href="")
+											a.small-gallery_slide.ajax-trigger(href="")
 												.slide-image
 													img(src="img/slider/slide-2.jpg" data-color="#524339")
 												.slide-text
 													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
 													.cross-link
 														span Перейти к акции
-											a.small-gallery_slide(href="")
+											a.small-gallery_slide.ajax-trigger(href="")
 												.slide-image
 													img(src="img/slider/slide-2.jpg" data-color="#5a2e42")
 												.slide-text
@@ -50,20 +50,20 @@ block content
 										.slide-name
 											span Новинки
 										.small-gallery_container
-											a.small-gallery_slide(href="")
+											a.small-gallery_slide.ajax-trigger(href="/collection.html")
 												.slide-image
 													img(src="img/slider/slide-2.jpg" data-color="#3e6879")
 												.slide-text
 													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
 													.cross-link
-														span Перейти к акции
-											a.small-gallery_slide(href="")
+														span Перейти к коллекции
+											a.small-gallery_slide.ajax-trigger(href="/collection.html")
 												.slide-image
 													img(src="img/slider/slide-2.jpg" data-color="#2a3149")
 												.slide-text
 													p FSN Gallery — это гигантский шоурум площадью 1500 м2, креативное пространство и&nbsp;co-working.
 													.cross-link
-														span Перейти к акции
+														span Перейти к коллекции
 					- var name = "collection"
 					include includes/_footer
 					script(type="text/javascript").
@@ -75,4 +75,20 @@ block content
 	script(type="text/javascript").
 		var modal = new Form();
 			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
 		

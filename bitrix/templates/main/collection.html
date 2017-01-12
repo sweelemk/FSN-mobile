@@ -145,7 +145,7 @@
                     <div class="copyright-item">terms of use</div>
                   </div>
                 </div>
-                <div class="nav-page-button" data-href="projects.html"><span>Pull up to projects</span></div>
+                <div class="nav-page-button" data-href="stocks.html"><span>Pull up to stocks</span></div>
               </footer>
               <script type="text/javascript">
                 var gallerys = $(".full-gallery");
@@ -172,7 +172,7 @@
             </ul>
             <ul class="menu-container">
                           <li class="menu-item active"><a class="menu-item_link ajax-trigger" href="collection.html">Коллекции</a></li>
-                          <li class="menu-item"><a class="menu-item_link ajax-trigger" href="actions.html">Акции</a></li>
+                          <li class="menu-item"><a class="menu-item_link ajax-trigger" href="stocks.html">Акции</a></li>
                           <li class="menu-item"><a class="menu-item_link ajax-trigger" href="projects.html">Проекты</a></li>
             </ul>
             <ul class="menu-container">
@@ -236,6 +236,22 @@
       <script type="text/javascript">
         var modal = new Form();
         	modal.init();
+        var valid = new Validation($(".js-validation"), {
+        	onSubmit: function(){
+        		$(".form-container_front").addClass("hide");
+        		$(".form-container_back").addClass("show");
+        	},
+        	onReset: function(form){
+        		$(form).removeClass("validation-success validation-error");
+        		$(form).trigger("reset");
+        		valid.resetForm();
+        		setTimeout(function(){
+        			$(".form-container_front").removeClass("hide");
+        			$(".form-container_back").removeClass("show");
+        		}, 300);				
+        	},
+        	errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+        });
       </script>
     </div>
     <!--END out-->

@@ -76,42 +76,42 @@
                     </div>
                   </div>
                   <div class="full-gallery full-gallery_slider full-gallery_slider-collection">
-                    <div class="full-gallery_container"><a class="full-gallery_slide ajax-trigger" href="#">
+                    <div class="full-gallery_container"><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#3f3b35"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#615f6e"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#434344"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#627f6e"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-3.jpg" data-color="#3f3b35"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
                                                 <div class="info">Минск</div>
-                                              </div></a><a class="full-gallery_slide ajax-trigger" href="#">
+                                              </div></a><a class="full-gallery_slide ajax-trigger" href="/project-inner.html">
                                               <div class="slide-image"><img src="img/slider/slide-4.jpg" data-color="#e6bace"></div>
                                               <div class="slide-text">
                                                 <div class="name">FAP, Roma</div>
@@ -172,7 +172,7 @@
             </ul>
             <ul class="menu-container">
                           <li class="menu-item"><a class="menu-item_link ajax-trigger" href="collection.html">Коллекции</a></li>
-                          <li class="menu-item"><a class="menu-item_link ajax-trigger" href="actions.html">Акции</a></li>
+                          <li class="menu-item"><a class="menu-item_link ajax-trigger" href="stocks.html">Акции</a></li>
                           <li class="menu-item active"><a class="menu-item_link ajax-trigger" href="projects.html">Проекты</a></li>
             </ul>
             <ul class="menu-container">
@@ -236,6 +236,22 @@
       <script type="text/javascript">
         var modal = new Form();
         	modal.init();
+        var valid = new Validation($(".js-validation"), {
+        	onSubmit: function(){
+        		$(".form-container_front").addClass("hide");
+        		$(".form-container_back").addClass("show");
+        	},
+        	onReset: function(form){
+        		$(form).removeClass("validation-success validation-error");
+        		$(form).trigger("reset");
+        		valid.resetForm();
+        		setTimeout(function(){
+        			$(".form-container_front").removeClass("hide");
+        			$(".form-container_back").removeClass("show");
+        		}, 300);				
+        	},
+        	errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+        });
       </script>
     </div>
     <!--END out-->

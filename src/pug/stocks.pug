@@ -1,0 +1,98 @@
+extends _layout
+
+block title
+	title Stocks
+block content
+	.bg-color(style="background-color: #414040")
+	.touch#touch
+		- var namePage = "stocks"
+		- var indexPage = false
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span Акции
+						.content-body
+							.full-gallery.gallery-stock.gallery-accordion
+								.full-gallery_container
+									.full-gallery_slide
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+										.slide-text
+											p Скидки -20% на изумительную коллекцию Meltin для ванной и гостинной, Италия
+											.hidden-content.hidden-box
+												.hidden-content_slide
+													p Осенние подарки от Fashion Gallery! На всю коллекцию 
+														a(class="ajax-trigger" href="/collection.html") Metlin для ванной и гостинной  
+														| скидка -20%
+													p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: + 375 (29) 614 54 53.
+											.cross-link
+												span Подробнее
+									.full-gallery_slide
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+										.slide-text
+											p Скидки -20% на изумительную коллекцию Meltin для ванной и гостинной, Италия
+											.hidden-content.hidden-box
+												.hidden-content_slide
+													p Осенние подарки от Fashion Gallery! На всю коллекцию 
+														a(class="ajax-trigger" href="/collection.html") Metlin для ванной и гостинной  
+														| скидка -20%
+													p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: + 375 (29) 614 54 53.
+											.cross-link
+												span Подробнее
+									.full-gallery_slide
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+										.slide-text
+											p Скидки -20% на изумительную коллекцию Meltin для ванной и гостинной, Италия
+											.hidden-content.hidden-box
+												.hidden-content_slide
+													p Осенние подарки от Fashion Gallery! На всю коллекцию 
+														a(class="ajax-trigger" href="/collection.html") Metlin для ванной и гостинной  
+														| скидка -20%
+													p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: + 375 (29) 614 54 53.
+											.cross-link
+												span Подробнее
+									.full-gallery_slide
+										.slide-image
+											img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+										.slide-text
+											p Скидки -20% на изумительную коллекцию Meltin для ванной и гостинной, Италия
+											.hidden-content.hidden-box
+												.hidden-content_slide
+													p Осенние подарки от Fashion Gallery! На всю коллекцию 
+														a(class="ajax-trigger" href="/collection.html") Metlin для ванной и гостинной  
+														| скидка -20%
+													p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: + 375 (29) 614 54 53.
+											.cross-link
+												span Подробнее
+					- var name = "collection"
+					include includes/_footer
+	- var currentClass = "Акции"
+	include includes/_menu
+	include includes/_popup
+	script(type="text/javascript").
+		var modal = new Form();
+			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
+		var accordion = new AccordionGallery($(".gallery-accordion"))

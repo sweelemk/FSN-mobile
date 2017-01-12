@@ -784,3 +784,20 @@ body
 					font-family: "Light"
 					+rem(font-size, 28px)
 					color: $white
+.full-gallery
+	&.gallery-stock
+		.slide-text
+			p
+				+rem(font-size, 28px)
+			.hidden-content
+				display: none
+				.hidden-content_slide
+					display: inline-block
+					+rem(margin, 20px 0)
+					p
+						+rem(font-size, 18px)
+						&:not(:last-of-type)
+							+rem(margin-bottom, 20px)
+						a
+							color: $Greylink
+							border-bottom: 1px solid

@@ -74,7 +74,7 @@ block content
 							- var ajax = false;
 							- var link = "collection.html"
 							include includes/_pagination
-					- var name = "projects"
+					- var name = "stocks"
 					include includes/_footer
 					script(type="text/javascript").
 						var gallerys = $(".full-gallery");
@@ -91,4 +91,20 @@ block content
 	script(type="text/javascript").
 		var modal = new Form();
 			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
 		
