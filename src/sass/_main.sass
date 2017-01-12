@@ -642,6 +642,11 @@ body
 				.pagination-spacer
 					+rem(padding, 0 15px)
 .text-container
+	.title
+		font-family: "Light"
+		+rem(font-size, 28px)
+		+rem(margin-bottom, 30px)
+		color: $white
 	p
 		+rem(font-size, 18px)
 		+rem(letter-spacing, 0.2px)
@@ -801,3 +806,93 @@ body
 						a
 							color: $Greylink
 							border-bottom: 1px solid
+.brands-wrapper
+	.brand-list
+		width: 100%
+		li
+			display: block
+			width: 100%
+			border-bottom: 1px solid hsla(0,0%,100%,.3)
+			span
+				font-family: "Light"
+				+rem(font-size, 18px)
+				color: $middleGrey
+				display: block
+				+rem(padding, 12px 0)
+.brand-modal
+	position: absolute
+	top: 0
+	right: 0
+	left: 100%
+	height: 100%
+	z-index: 5
+	&.mobal-open
+		+rem(left, 0) 
+	&.modal-animate
+		&::after
+			opacity: 0.5
+	.brand-modal_container
+		position: absolute
+		top: 0
+		right: 0
+		// height: 100%
+		background-color: $white
+		width: 100%
+		z-index: 6
+		overflow: auto
+		transform: translate(100%, 0)
+		transition: transform 0.5s ease
+		+rem(padding, 80px 20px 60px 20px)
+		&.open
+			transform: translate(0, 0)
+		.brand-logo
+			+rem(width, 180px)
+			+rem(height, 130px)
+			position: relative
+			+rem(margin-bottom, 20px)
+			display: table
+			.logo-container
+				display: table-cell
+				vertical-align: middle
+				width: 100%
+				height: 100%
+				img
+					max-width: 100%
+					max-height: 100%
+					display: block
+		.brand-head
+			+rem(margin-bottom, 40px)
+			.name
+				font-family: "Light"
+				+rem(font-size, 28px)
+				color: $black
+				letter-spacing: 0.2px
+				+rem(margin-bottom, 8px)
+			.link
+				color: #98989c
+		.brand-content
+			+rem(margin-bottom, 40px)
+			p
+				color: $black
+				+rem(line-height, 28px)
+.download-container
+	.download-item
+		display: flex
+		align-items: center
+		&:not(:last-of-type)
+			+rem(margin-bottom, 30px)
+		.icon
+			+rem(width, 30px)
+			+rem(height, 27px)
+			background-image: url(../img/icons/download.jpg)
+			background-size: cover
+			+rem(margin-right, 20px)
+		.name
+			span
+				font-family: "Light"
+				font-size: 12px
+				color: $black
+				text-transform: uppercase
+				letter-spacing: 3px
+				display: block
+				line-height: 1.7

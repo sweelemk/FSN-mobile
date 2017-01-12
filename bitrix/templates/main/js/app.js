@@ -2252,11 +2252,13 @@ customScroll.prototype.endscroll = function() {
 var mainScroll = ".wrapper",
 	scrollPopup = ".page-menu",
 	scrollModal = ".modal__wrapper",
-	mainScrollInit, scrollPopupInit, scrollModalInit, burger;
+	scrollBrand = ".brand-modal",
+	mainScrollInit, scrollPopupInit, scrollModalInit, scrollBrand, burger;
 window.onload =  function(){
 	mainScrollInit = new customScroll(mainScroll);
 	scrollPopupInit = new customScroll(scrollPopup);
 	scrollModalInit = new customScroll(scrollModal);
+	scrollBrandInit = new customScroll(scrollBrand);
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	var pull = new PullMobile;
 	pull.init();
@@ -2981,5 +2983,57 @@ AccordionGallery.prototype = {
 				$(item).removeClass("open").find("span").text(self.option.defaultText);
 			}
 		});
+	}
+}
+function BrandModal(el){
+	this.el = el;
+	this.init()
+}
+BrandModal.prototype = {
+	init: function(){
+		this.modalContainer = $(".brand-modal");
+		this.brandContainer = $(".brand-modal_container");
+		this.burger = this.modalContainer.parents(".out").find(".burger");
+		this.scrollArea = this.modalContainer.find(".scroll-area");
+
+		this.eventHandlers();
+	},
+	eventHandlers: function() {
+		var self = this;
+		this.el.on("click", function(){
+			this.index = $(this).data("brand");
+			self.openWindow(this.index)
+		});
+		this.brandContainer.on("click", function(event){
+			event.stopPropagation();
+		});
+		this.modalContainer.on("click", function(){
+			self.closeWindow();
+		});
+		this.burger.on("click", function(){
+			self.closeWindow();
+		});
+	},
+	openWindow: function(el) {
+		var self = this;
+		this.modal = this.modalContainer.find("[data-modal-index=" + el + "]");
+		scrollBrandInit.scrollUp();
+		setTimeout(function(){			
+			self.scrollArea.height(self.modal.innerHeight());
+			scrollBrandInit.update();
+		},300);
+		this.modalContainer.addClass("mobal-open modal-animate");
+		this.modal.addClass("open");
+		this.burger.addClass("modal open_burger");
+	},
+	closeWindow: function(){
+		var self = this;
+		this.brandContainer.removeClass("open");
+		this.modalContainer.removeClass("modal-animate");
+		this.burger.removeClass("open_burger");
+		setTimeout(function(){
+			self.modalContainer.removeClass("mobal-open");
+			self.burger.removeClass("modal");
+		}, 500);
 	}
 }

@@ -1,0 +1,61 @@
+extends _layout
+
+block title
+	title Stocks
+block content
+	.bg-color(style="background-color: #414040")
+	.touch#touch
+		- var namePage = "designers"
+		- var indexPage = false
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span Дизайнерам
+						.content-body
+							.text-container
+								.title Условия сотрудничества с профессионалами
+								p Мы сотрудничаем со многими известными итальянскими и испанскими производите­лями плитки и являемся их официальными дистрибьюторами на территории Респуб­лики Беларусь.
+							.brands-wrapper
+								ul.brand-list
+									mixin brand-item(index, name)
+										li
+											span(class="modal" data-brand=index) #{name}
+									+brand-item(1, "Anjasora")
+									+brand-item(2, "Ariostea")
+									+brand-item(3, "Ceracasa")
+									+brand-item(4, "Fap Ceramiche")
+									+brand-item(5, "FMG")
+									+brand-item(6, "Florim Ceramiche")
+									+brand-item(7, "Grespania")
+									+brand-item(8, "Gres de Aragon")
+					- var name = "index"
+					include includes/_footer					
+	- var currentClass = "Дизайнерам"
+	include includes/_menu
+	include includes/_popup
+	include includes/_brand-modal
+	script(type="text/javascript").
+		var modal = new Form();
+			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
+		var modal = new BrandModal($(".modal"));
