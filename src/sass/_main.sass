@@ -841,7 +841,7 @@ body
 		z-index: 6
 		overflow: auto
 		transform: translate(100%, 0)
-		transition: transform 0.5s ease
+		transition: transform 0.3s ease
 		+rem(padding, 80px 20px 60px 20px)
 		&.open
 			transform: translate(0, 0)
@@ -896,3 +896,76 @@ body
 				letter-spacing: 3px
 				display: block
 				line-height: 1.7
+.email-form_container
+	display: inline-block
+	+rem(max-width, 270px)
+	width: 100%
+	position: relative
+	+rem(margin-bottom, 20px)
+	.form-front
+		position: relative
+		transition: opacity 0.3s ease, visibility 0.3s ease
+		&.hide
+			opacity: 0
+			visibility: hidden
+		.input-form
+			width: 100%
+			+rem(height, 50px)
+			background-color: transparent
+			border: 0.125rem solid $white
+			border-width: 2px
+			font-family: "Light"
+			font-size: 10px
+			color: $white
+			text-transform: uppercase
+			letter-spacing: 3px
+			+rem(padding, 0 27px)
+			&::placeholder
+				color: $white
+		.submit
+			position: absolute
+			top: 0
+			right: 0
+			+rem(width, 50px)
+			+rem(height, 50px)
+			background-color: transparent
+			&::after
+				content: '';
+				+rem(width, 11px)
+				+rem(height, 11px)
+				position: absolute;
+				border-top: 1px solid #fff;
+				border-right: 1px solid #fff;
+				right: 19px;
+				right: 1.1875rem;
+				top: 50%;
+				margin-top: -6px;
+				margin-top: -.375rem;
+				-webkit-transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				transform: rotate(45deg);
+	.form-back
+		position: absolute
+		opacity: 0
+		visibility: hidden
+		top: 0
+		transform: translate(-2rem, 0)
+		transition: opacity 0.3s ease 0.3s, visibility 0.3s ease 0.3s, transform 0.3s ease 0.3s
+		&.show
+			transform: translate(0,0)
+			opacity: 1
+			visibility: visible
+		.form-success
+			p
+				font-family: "Light"
+				opacity: 0.5
+				+rem(padding-left, 45px)
+				color: $milk
+			.return
+				+rem(width, 27px)
+				+rem(height, 20px)
+				background-image: url(../img/svg/check.svg)
+				background-size: cover
+				position: absolute
+				+rem(top, 7px)
+				opacity: 0.5

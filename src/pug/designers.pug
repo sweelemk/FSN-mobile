@@ -20,6 +20,15 @@ block content
 							.text-container
 								.title Условия сотрудничества с профессионалами
 								p Мы сотрудничаем со многими известными итальянскими и испанскими производите­лями плитки и являемся их официальными дистрибьюторами на территории Респуб­лики Беларусь.
+							.email-form.email-form_container
+								.form-front
+									form(action="")
+										input(type="text" class="input-form" placeholder="E-mail рассылка")
+										button(type="submit" class="submit")
+								.form-back
+									.form-success
+										p Вы подпсались на e-mail рассылку
+										.return
 							.brands-wrapper
 								ul.brand-list
 									mixin brand-item(index, name)
@@ -34,7 +43,14 @@ block content
 									+brand-item(7, "Grespania")
 									+brand-item(8, "Gres de Aragon")
 					- var name = "index"
-					include includes/_footer					
+					include includes/_footer
+					script(type="text/javascript").
+						var simpleForm = new SimpleValidForm($(".email-form"),{
+							onSubmit: function(form) {
+								$(form).find(".form-front").addClass("hide");
+								$(form).find(".form-back").addClass("show");
+							}
+						});
 	- var currentClass = "Дизайнерам"
 	include includes/_menu
 	include includes/_popup

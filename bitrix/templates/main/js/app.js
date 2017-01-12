@@ -3000,7 +3000,7 @@ BrandModal.prototype = {
 	},
 	eventHandlers: function() {
 		var self = this;
-		this.el.on("click", function(){
+		$('body').on("click", ".modal", function(){
 			this.index = $(this).data("brand");
 			self.openWindow(this.index)
 		});
@@ -3036,4 +3036,43 @@ BrandModal.prototype = {
 			self.burger.removeClass("modal");
 		}, 500);
 	}
+}
+function SimpleValidForm(el, options){
+	this.el = el
+	this.options = extend( {}, this.options );
+	extend( this.options, options );
+	this.init();
+}
+SimpleValidForm.prototype.options = {
+	onSubmit: function(){
+		return false;
+	}
+}
+SimpleValidForm.prototype = {
+	init: function(){
+		this.input = [].slice.call($(this.el).find(".input-form"));
+		this.submit = $(this.el).find(".submit");
+
+		this.initEvents();
+	},
+	initEvents: function(){
+		var self = this;
+		this.submit.on("click", function(event){
+			self.input.forEach(function(item){
+				self.validate(item);
+			});
+			event.preventDefault();
+		});
+	},
+	validate: function(input){
+		if(input.value === "") {
+			this.errorEvent(input)
+		} else {
+			input.classList.remove("error");
+			this.options.onSubmit(this.el);
+		}
+	},
+	errorEvent: function(inputItem){
+		inputItem.classList.add("error");
+	}	
 }
