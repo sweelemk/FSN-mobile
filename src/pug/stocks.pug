@@ -73,9 +73,12 @@ block content
 												span Подробнее
 					- var name = "projects"
 					include includes/_footer
+					script(type="text/javascript").
+						var accordion = new AccordionGallery($(".gallery-accordion"))
 	- var currentClass = "Акции"
 	include includes/_menu
 	include includes/_popup
+	include includes/_brand-modal
 	script(type="text/javascript").
 		var modal = new Form();
 			modal.init();
@@ -95,4 +98,4 @@ block content
 			},
 			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
 		});
-		var accordion = new AccordionGallery($(".gallery-accordion"))
+		var modal = new BrandModal($(".modal"));

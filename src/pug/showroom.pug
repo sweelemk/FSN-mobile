@@ -1,0 +1,80 @@
+extends _layout
+
+block title
+	title Showroom
+block content
+	.bg-color(style="background-color: #343a3e")
+	.touch#touch
+		- var namePage = "main"
+		- var indexPage = false
+		include includes/_burger
+		.wrapper
+			.scroll#out
+				.content(class="content-"+ namePage data-page=namePage)
+					include includes/_header
+					.content-wrapper
+						.content-head
+							.head-container
+								span Showroom
+						.content-body
+							.text-container
+								.list
+									.list-item
+										.numbers 1200m
+											sup 2
+										p Самый большой шоурум в Минске
+									.list-item
+										.numbers 900
+										p Коллекций плитки в одном месте
+									.list-item
+										.numbers 56
+										p Сотрудников в штате компании
+							.gallery-showroom
+								.gallery-showroom_container
+									.gallery-slider.js-gallery-slider
+										.slider-item
+											.cover_video-wrapp(data-id="3TlJWoM69ww")
+											.image-container
+												img(src="img/gallery/item-4.jpg")
+										.slider-item
+											.image-container
+												img(src="img/gallery/item-4.jpg")
+										.slider-item
+											.cover_video-wrapp(data-id="3TlJWoM69ww")
+											.screen_frame
+												.screen_frame-content
+													.screen_frame-image
+														div(style="background-image: url(img/video-holder/Beach-Camera.jpg)")
+									.pagination-container
+										.pagination-current
+											span.current 01
+										.pagination-spinner |
+										.pagination-all 04
+
+					- var name = "designers"
+					include includes/_footer
+	- var currentClass = "Шоурум"
+	include includes/_menu
+	include includes/_popup
+	include includes/_brand-modal
+	script(type="text/javascript").
+		var modal = new Form();
+			modal.init();
+		var valid = new Validation($(".js-validation"), {
+			onSubmit: function(){
+				$(".form-container_front").addClass("hide");
+				$(".form-container_back").addClass("show");
+			},
+			onReset: function(form){
+				$(form).removeClass("validation-success validation-error");
+				$(form).trigger("reset");
+				valid.resetForm();
+				setTimeout(function(){
+					$(".form-container_front").removeClass("hide");
+					$(".form-container_back").removeClass("show");
+				}, 300);				
+			},
+			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+		});
+		var modal = new BrandModal($(".modal"));
+		
