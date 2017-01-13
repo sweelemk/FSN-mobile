@@ -4,10 +4,10 @@ block title
 	title Stocks
 block content
 	.bg-color(style="background-color: #414040")
+	include includes/_burger
 	.touch#touch
 		- var namePage = "stocks"
 		- var indexPage = false
-		include includes/_burger
 		.wrapper
 			.scroll#out
 				.content(class="content-"+ namePage data-page=namePage)
@@ -73,29 +73,28 @@ block content
 												span Подробнее
 					- var name = "projects"
 					include includes/_footer
-					script(type="text/javascript").
-						var accordion = new AccordionGallery($(".gallery-accordion"))
+		include includes/_popup
+		include includes/_brand-modal
+		script(type="text/javascript").
+			var modal = new Form();
+				modal.init();
+			var valid = new Validation($(".js-validation"), {
+				onSubmit: function(){
+					$(".form-container_front").addClass("hide");
+					$(".form-container_back").addClass("show");
+				},
+				onReset: function(form){
+					$(form).removeClass("validation-success validation-error");
+					$(form).trigger("reset");
+					valid.resetForm();
+					setTimeout(function(){
+						$(".form-container_front").removeClass("hide");
+						$(".form-container_back").removeClass("show");
+					}, 300);				
+				},
+				errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+			});
+			var modal = new BrandModal($(".modal"));
+			var accordion = new AccordionGallery($(".gallery-accordion"));
 	- var currentClass = "Акции"
 	include includes/_menu
-	include includes/_popup
-	include includes/_brand-modal
-	script(type="text/javascript").
-		var modal = new Form();
-			modal.init();
-		var valid = new Validation($(".js-validation"), {
-			onSubmit: function(){
-				$(".form-container_front").addClass("hide");
-				$(".form-container_back").addClass("show");
-			},
-			onReset: function(form){
-				$(form).removeClass("validation-success validation-error");
-				$(form).trigger("reset");
-				valid.resetForm();
-				setTimeout(function(){
-					$(".form-container_front").removeClass("hide");
-					$(".form-container_back").removeClass("show");
-				}, 300);				
-			},
-			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
-		});
-		var modal = new BrandModal($(".modal"));

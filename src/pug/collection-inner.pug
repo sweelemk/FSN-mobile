@@ -4,10 +4,10 @@ block title
 	title Collections
 block content
 	.bg-color(style="background-color: #524339")
+	include includes/_burger
 	.touch#touch
 		- var namePage = "collections"
 		- var indexPage = false
-		include includes/_burger
 		.wrapper
 			.scroll#out
 				.content(class="content-"+ namePage data-page=namePage)
@@ -51,26 +51,28 @@ block content
 											.nav-name MARBLE ARCH
 					- var name = "projects"
 					include includes/_footer
+		include includes/_popup
+		include includes/_brand-modal
+		script(type="text/javascript").
+			//- var burger = new mobileMenu();
+			//- 	burger.init();
+			var modal = new Form();
+				modal.init();
+			var valid = new Validation($(".js-validation"), {
+				onSubmit: function(){
+					$(".form-container_front").addClass("hide");
+					$(".form-container_back").addClass("show");
+				},
+				onReset: function(form){
+					$(form).removeClass("validation-success validation-error");
+					$(form).trigger("reset");
+					valid.resetForm();
+					setTimeout(function(){
+						$(".form-container_front").removeClass("hide");
+						$(".form-container_back").removeClass("show");
+					}, 300);				
+				},
+				errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+			});
 	- var currentClass = "Коллекции"
 	include includes/_menu
-	include includes/_popup
-	include includes/_brand-modal
-	script(type="text/javascript").
-		var modal = new Form();
-			modal.init();
-		var valid = new Validation($(".js-validation"), {
-			onSubmit: function(){
-				$(".form-container_front").addClass("hide");
-				$(".form-container_back").addClass("show");
-			},
-			onReset: function(form){
-				$(form).removeClass("validation-success validation-error");
-				$(form).trigger("reset");
-				valid.resetForm();
-				setTimeout(function(){
-					$(".form-container_front").removeClass("hide");
-					$(".form-container_back").removeClass("show");
-				}, 300);				
-			},
-			errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
-		});

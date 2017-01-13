@@ -236,10 +236,10 @@ var _doReset = function() {
 	var bodyClass = document.body.classList;
 		bodyClass.remove('loading');
 		bodyClass.remove('ptr-refresh');
-		bodyClass.add('ptr-reset');
+		// bodyClass.add('ptr-reset');
 
 	var bodyClassRemove = function() {
-		bodyClass.remove('ptr-reset');
+		// bodyClass.remove('ptr-reset');
 		document.body.removeEventListener( 'transitionend', bodyClassRemove, false );
 	};
 
@@ -248,49 +248,42 @@ var _doReset = function() {
 
 function mobileMenu() {		
 	_this = this;
-	var trigger = $(".burger"),
-		container = $(".page-menu"),
-		link = container.find(".ajax-trigger"),
-		scroll = $(".out"),
-		close = container.find(".close"),
-		posY;	
+	// var trigger = $(".burger"),
+	// 	container = $(".page-menu"),
+	// 	link = container.find(".ajax-trigger"),
+	// 	scroll = $(".out"),
+	// 	close = container.find(".close"),
+	// 	posY;	
 
-	_this.init = function() {
-		
-		_this.initEvent()
-	}
+	
 
 	_this.initEvent = function(){
-		trigger.on("click", function(){
-			if($(this).hasClass("modal")) {
+		_this.trigger.addEventListener("click", _this.openMenu, false);
+
+		_this.link.forEach(function(el){
+			el.addEventListener("click", function(){
+				_this.triggerLink($(this));
 				return false;
-			}
-			if(!$(this).hasClass("open")) {
-				_this.openMenu();
-			} else {
-				_this.closeMenu();
-			}
-		});
-		link.on("click", function(){
-			_this.triggerLink($(this));
-			return false;
+			});
 		});
 	}
 
 	_this.openMenu = function() {
-		trigger.addClass("open open_burger");
-		container.addClass("open");
-		scroll.attr("style", "overflow: hidden");
-		// mainScrollInit.destroy();
+		if(_this.trigger.classList.contains("modal")) return false;
+		if(!_this.trigger.classList.contains("open")) {
+			_this.trigger.classList.add("open");
+			_this.trigger.classList.add("open_burger");
+			_this.container.classList.add("open");
+	 	} else {
+	 		_this.closeMenu();
+		}		
 	}
 
 	_this.closeMenu = function() {
-		posY = $(".scroll").offset().top;
-		trigger.removeClass("open open_burger");
-		container.removeClass("open");
-		scroll.removeAttr("style")
-		// mainScrollInit.init();
-		// mainScrollInit.scrollToElement(posY);
+		_this.trigger.classList.remove("open", "open_burger");
+		setTimeout(function(){
+			_this.container.classList.remove("open");
+		}, 300);		
 	}
 
 	_this.triggerLink = function(item){
@@ -305,6 +298,16 @@ function mobileMenu() {
 			}, 500);
 		},300);
 		return false;
+	}
+	
+	_this.init = function() {
+		_this.trigger = document.querySelector(".burger");
+		_this.container = document.querySelector(".page-menu");
+		_this.link = [].slice.call(document.querySelectorAll(".menu-item_link"));
+		_this.scroll = document.querySelector(".out");
+		_this.posY;
+
+		_this.initEvent();
 	}
 };
 
@@ -524,7 +527,7 @@ function loading(link) {
 			_this.initAnimation();
 		},
 		success: function(content){
-			var cont = $(content).find(".wrapper .scroll").html();
+			var cont = $(content).find("#touch").html();
 			var bodyColor = $(content).find(".bg-color").css("background-color");
 
 			window.history.pushState("page" + _href, _href, _href);
@@ -537,10 +540,11 @@ function loading(link) {
 			$(".menu").find(".menu-item").parent().eq(parentIndex).find("li").eq(navIndex).addClass("active");
 
 			setTimeout(function(){
-				$(".wrapper").find(".scroll").html(cont).promise().done(function(){
+				$("#touch").html(cont).promise().done(function(){
 					_doReset();
-					mainScrollInit.scrollUp();
-					mainScrollInit.update();
+					mainScrollInit.init();
+					scrollBrandInit.init();
+					// mainScrollInit.update();
 					_this.endAnimation();
 					$(".bg-color").css("background-color", bodyColor);
 					// if($(".full-galley").length){
@@ -630,7 +634,7 @@ function Form(){
 	var _this = this;
 
 	_this.initEvents = function(){
-		$("body").on("click", "[data-modal]", function(event){
+		$("body").off("click.modal").on("click.modal", "[data-modal]", function(event){
 			var _ = $(this),
 				_data = _.data("modal");
 
@@ -638,27 +642,30 @@ function Form(){
 			event.preventDefault();
 			return false;
 		});
-		_this.burger.on("click", function(){
-			_this.closeModal();
-			if($(".js-validation").hasClass("validation-success") || $(".js-validation").hasClass("validation-error")) {
-				valid.options.onReset($(".js-validation"));
-			}
-		});
+
+		$("body").off("click.modalBurger").on("click.modalBurger", ".burger", _this.bindEventClick);
 	};
+
+	_this.bindEventClick = function(){
+		if(_this.modal.hasClass("open")) {
+			_this.closeModal();
+		}
+		
+		if($(".js-validation").hasClass("validation-success") || $(".js-validation").hasClass("validation-error")) {
+			valid.options.onReset($(".js-validation"));
+		}
+	}
 
 	_this.openModal = function(data){
 		var modal = $("[data-modal-popup='" + data + "']");
 
 		modal.addClass("open");
 		_this.burger.addClass("modal open_burger");
-
-		// mainScrollInit.destroy();
 	};
 
 	_this.closeModal = function(){
 		_this.modal.removeClass("open");
 		_this.burger.removeClass("open_burger");
-		// mainScrollInit.init();
 		setTimeout(function(){
 			_this.burger.removeClass("modal");
 		},300);
@@ -818,7 +825,7 @@ BrandModal.prototype = {
 	},
 	eventHandlers: function() {
 		var self = this;
-		$('body').on("click", ".modal", function(){
+		this.el.on("click", function(){
 			this.index = $(this).data("brand");
 			self.openWindow(this.index)
 		});
@@ -828,7 +835,7 @@ BrandModal.prototype = {
 		this.modalContainer.on("click", function(){
 			self.closeWindow();
 		});
-		this.burger.on("click", function(){
+		$('body').off("click.brand").on("click.brand", ".burger", function(){
 			self.closeWindow();
 		});
 	},
@@ -846,13 +853,16 @@ BrandModal.prototype = {
 	},
 	closeWindow: function(){
 		var self = this;
-		this.brandContainer.removeClass("open");
-		this.modalContainer.removeClass("modal-animate");
-		this.burger.removeClass("open_burger");
-		setTimeout(function(){
-			self.modalContainer.removeClass("mobal-open");
-			self.burger.removeClass("modal");
-		}, 500);
+		if(this.modalContainer.hasClass("mobal-open")){
+			this.brandContainer.removeClass("open");
+			this.modalContainer.removeClass("modal-animate");
+			this.burger.removeClass("open_burger");
+			setTimeout(function(){
+				self.modalContainer.removeClass("mobal-open");
+				self.burger.removeClass("modal");
+			}, 500);
+		}
+			
 	}
 }
 function SimpleValidForm(el, options){
@@ -893,4 +903,179 @@ SimpleValidForm.prototype = {
 	errorEvent: function(inputItem){
 		inputItem.classList.add("error");
 	}	
+};
+
+
+function Numerical(num) {
+	this.num = num;
+	// this.initialize();
+	// console.log(this.num)
+};
+
+Numerical.prototype = {
+	initialize: function(el){
+		console.log(el)
+	}
+};
+var numeric = new Numerical();
+
+// var numeracil = new Numerical();
+// HorizontalGallery.prototype = Object.create(Numerical.prototype);
+
+
+function HorizontalGallery(el){
+	this.el = el;
+
+	this.init();
+}
+HorizontalGallery.prototype = {
+	init: function(){
+		var self = this;
+
+		this.video = this.el.find("video");
+
+		this.el.slick({
+			infinite: false,
+			slidesToShow: 1,
+			swipeToSlide: 1,
+			slidesToScroll: 1,
+			centerMode: true,
+			centerPadding: '15px',
+			arrows: false,
+			speed: 800,
+			touchMove: false,
+			touchThreshold: 5
+		});
+
+		this.slideLength = this.el.find(".slider-item").length;
+
+		this.dur = 900;
+
+		this.action = false;
+
+		this.paginAll = this.el.next().find(".pagination-all");
+		this.paginCurrent = this.el.next().find(".current");
+
+		if(this.slideLength < 10) {
+			this.paginAll.text("0" + this.slideLength);
+		} else {
+			this.paginAll.text(this.slideLength);
+		}
+	
+		this.slideItem = this.el.find(".slider-item");
+
+		this.eventHandlers();
+	},
+	eventHandlers: function(){
+		var self = this;
+
+		this.el.on("afterChange", function(slick, currentSlide){
+
+			this.currSlide = $(this).slick("slickCurrentSlide") + 1;
+
+			if(self.slideLength < 10) {
+				self.paginCurrent.text("0" + this.currSlide);
+			} else {
+				self.paginCurrent.text(this.currSlide);
+			}
+
+			console.log(this.currSlide)
+
+		});
+	}
+};
+
+function ModalVideo(el){
+	this.el = el;
+
+	this.videoOBJ = [];
+
+	this.opt = {
+		timeout: 500
+	}
+
+	this.init();
+}
+ModalVideo.prototype = {
+	init: function(){
+		this.modalWindow = $(".modal-video");
+		this.modalFrame = this.modalWindow.find(".modal-video-frame");
+		this.burger = $(".burger");
+		this.mainCover = $(".out");
+
+		this.eventHandlers();
+	},
+	eventHandlers: function(){
+		var self = this;
+		this.el.on("click", function(){
+			this.videoID = $(this).data("id");
+			this.templateFrame = self.templateVideo(this.videoID);
+
+			self.openModal(this.templateFrame);
+		});
+		// $("body").off('click.video').on("click.video", ".burger", self.closeModal);
+		$("body").off('click.video').on("click.video", ".burger", function(){
+			self.closeModal();		
+		});
+		this.modalWindow.on("click", function(){
+			self.closeModal();
+		});
+		this.modalFrame.on("click", function(event){
+			event.stopPropagation();
+		})
+	},
+	templateVideo: function(id) {
+		var self = this;
+		this.iframeImg = document.createElement("img");
+		this.iframeImgURL = "http://i.ytimg.com/vi/" + id + "/maxresdefault.jpg" ;
+
+		this.iframeImg.setAttribute("src", this.iframeImgURL);
+
+		this.iframeVideo = document.createElement("iframe");
+		this.iframeVideoURL = "https://www.youtube.com/embed/" + id;
+		
+		this.iframeVideo.setAttribute("src", this.iframeVideoURL);
+
+		this.videoOBJ.push(this.iframeImg, this.iframeVideo);
+		return this.videoOBJ;
+	},
+	openModal: function(link){
+
+		var self = this;
+
+		this.modalWindow.addClass("modal-video-open modal-video-overlay");
+
+		this.modalFrame.addClass("animate").append(link[0]);
+
+		this.burger.addClass("open_burger modal");
+
+		setTimeout(function(){
+			self.mainCover.addClass("openModal");
+			self.modalFrame.append(link[1]);
+			self.loadFrame();
+		}, this.opt.timeout*1.5);
+	},
+	loadFrame: function(){
+		this.modalFrame.find("iframe").on("load", function(){
+			$(this).addClass("load");
+		});
+	},
+	closeModal: function(){
+		var self = this;
+
+		if(this.modalWindow.hasClass("modal-video-open")){
+			this.modalFrame.removeClass("animate");
+			this.burger.removeClass("open_burger");
+			setTimeout(function(){
+				self.modalWindow.removeClass("modal-video-overlay");
+				self.modalFrame.empty();
+				self.burger.removeClass("modal");
+				self.videoOBJ = [];
+			}, this.opt.timeout*1.5);
+			setTimeout(function() {
+				self.modalWindow.removeClass("modal-video-open");
+				self.mainCover.removeClass("openModal");
+			}, this.opt.timeout*2.5);
+		}
+	}
 }
