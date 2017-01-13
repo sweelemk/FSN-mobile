@@ -1,6 +1,7 @@
 $icons: (0:0)
-$icons: map-merge($icons,(logo: (X: 0px, Y:0px, W: 311px, H: 43px, TW: 311px, TH: 146px, IMG: '../img/icons.png')))
-$icons: map-merge($icons,(video-play: (X: 0px, Y:-47px, W: 100px, H: 99px, TW: 311px, TH: 146px, IMG: '../img/icons.png')))
+$icons: map-merge($icons,(desktop: (X: 0px, Y:0px, W: 294px, H: 243px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
+$icons: map-merge($icons,(logo: (X: -298px, Y:0px, W: 311px, H: 43px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
+$icons: map-merge($icons,(video-play: (X: -298px, Y:-47px, W: 100px, H: 99px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
 
 
 // Gets an attribute from the sass map
@@ -37,15 +38,21 @@ $icons: map-merge($icons,(video-play: (X: 0px, Y:-47px, W: 100px, H: 99px, TW: 3
 	+sprite-retina($i)	
 
 //
+//.icon-desktop
+//	width: 294px
+//	height: 243px
+//	background-image: url('../img/icons.png')
+//	background-position: 0px 0px
+//
 //.icon-logo
 //	width: 311px
 //	height: 43px
 //	background-image: url('../img/icons.png')
-//	background-position: 0px 0px
+//	background-position: -298px 0px
 //
 //.icon-video-play
 //	width: 100px
 //	height: 99px
 //	background-image: url('../img/icons.png')
-//	background-position: 0px -47px
+//	background-position: -298px -47px
 //

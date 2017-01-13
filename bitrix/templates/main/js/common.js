@@ -118,10 +118,6 @@ var PullMobile = function(){
 			resistance: params.resistance || defaults.resistance
 		};
 
-		// if(!options.contentEl || options.ptrEl) {
-		// 	return false;
-		// }
-
 		var h = new Hammer(options.contentEl);
 
 		h.get( 'pan' ).set( { direction: Hammer.DIRECTION_VERTICAL } );
@@ -200,14 +196,6 @@ var PullMobile = function(){
 		pan.enabled = false;
 
 	};
-
-	// this._setBodyClass = function() {
-	// 	if ( pan.distance > options.distanceToRefresh ) {
-	// 		bodyClass.add( 'ptr-refresh' );
-	// 	} else {
-	// 		bodyClass.remove( 'ptr-refresh' );
-	// 	}		
-	// };
 	
 	this._setBodyClass = function() {
 		if ( pan.distance > options.distanceToRefresh ) {
@@ -236,10 +224,8 @@ var _doReset = function() {
 	var bodyClass = document.body.classList;
 		bodyClass.remove('loading');
 		bodyClass.remove('ptr-refresh');
-		// bodyClass.add('ptr-reset');
 
 	var bodyClassRemove = function() {
-		// bodyClass.remove('ptr-reset');
 		document.body.removeEventListener( 'transitionend', bodyClassRemove, false );
 	};
 
@@ -248,15 +234,7 @@ var _doReset = function() {
 
 function mobileMenu() {		
 	_this = this;
-	// var trigger = $(".burger"),
-	// 	container = $(".page-menu"),
-	// 	link = container.find(".ajax-trigger"),
-	// 	scroll = $(".out"),
-	// 	close = container.find(".close"),
-	// 	posY;	
-
 	
-
 	_this.initEvent = function(){
 		_this.trigger.addEventListener("click", _this.openMenu, false);
 
@@ -516,7 +494,6 @@ function loading(link) {
 		$(".revealer").addClass("animation-layer-out");
 		$(".revealer").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", function(){
 			$(this).removeClass("animation-layer-out animation-layer-in");
-			// $(this).removeClass(_this.params.animOut);
 		})
 	};
 	
@@ -544,12 +521,8 @@ function loading(link) {
 					_doReset();
 					mainScrollInit.init();
 					scrollBrandInit.init();
-					// mainScrollInit.update();
 					_this.endAnimation();
-					$(".bg-color").css("background-color", bodyColor);
-					// if($(".full-galley").length){
-					// 	gallery.update();
-					// }					
+					$(".bg-color").css("background-color", bodyColor);				
 				});
 			}, 700);
 		}
@@ -610,7 +583,6 @@ Pagination.prototype = {
 				
 				setTimeout(function(){
 					$(self.options.appendContainer).html(that.cont).promise().done(function(){
-						// gallery.update();
 						mainScrollInit.update();
 						$(self.options.appendContainer).removeClass("load");
 						$(self.el).find(self.default.paginCurrent).html(that.nextCurr);
@@ -905,24 +877,6 @@ SimpleValidForm.prototype = {
 	}	
 };
 
-
-function Numerical(num) {
-	this.num = num;
-	// this.initialize();
-	// console.log(this.num)
-};
-
-Numerical.prototype = {
-	initialize: function(el){
-		console.log(el)
-	}
-};
-var numeric = new Numerical();
-
-// var numeracil = new Numerical();
-// HorizontalGallery.prototype = Object.create(Numerical.prototype);
-
-
 function HorizontalGallery(el){
 	this.el = el;
 
@@ -1013,7 +967,7 @@ ModalVideo.prototype = {
 
 			self.openModal(this.templateFrame);
 		});
-		// $("body").off('click.video').on("click.video", ".burger", self.closeModal);
+
 		$("body").off('click.video').on("click.video", ".burger", function(){
 			self.closeModal();		
 		});
