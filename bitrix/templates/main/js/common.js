@@ -1,4 +1,55 @@
 'use strict'
+function preload(){
+	var siteLoader = $(".screen-load"),
+		activeLoad = siteLoader.find(".load-active"),
+		activeContainer = siteLoader.find(".load-container"),
+		timeLine = new TimelineLite();
+
+	timeLine
+		.set(activeLoad, {
+			width: 0
+		})
+		.to(activeLoad, 1.2, {
+			width: "10%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 0.5, {
+			width: "25%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1.5, {
+			width: "33.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1.5, {
+			width: "60.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 0.7, {
+			width: "80.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1, {
+			width: "100%",
+			ease: Power2.easeOut
+		})
+		.to(siteLoader, 0.3, {
+			autoAlpha: "0",
+			delay: 0.7,
+			display: 'none',
+			ease: Power2.easeOut,
+			onComplete: function(){
+				$(".out").addClass("load");
+				setTimeout(function(){
+					$(".out").removeClass("unload load");
+				},1600)
+			}
+		})
+}
+
+$(document).ready(function(){
+	preload();
+})
 
 $.fn.hasAttr = function(name) {
 	return this.attr(name) !== undefined;
@@ -15,11 +66,15 @@ function extend( a, b ) {
 
 function customScroll(el) {
 	this.el = el;
-	this.init();
+	if(document.querySelector(el) != null)
+		this.init();
+		this.scrollUpdate();
 }
 
 customScroll.prototype.init = function() {
 	var self = this;
+	if(!document.querySelectorAll(self.el).length) return;
+
 	this.scroll = new IScroll(self.el, {
 		bounce: false,
 		click: false,
@@ -65,24 +120,36 @@ customScroll.prototype.endscroll = function() {
 	// 	this.scroll.on("scrollEnd", gallery.scrollValue);
 	// }
 }
+customScroll.prototype.scrollUpdate = function(){
+	var self = this;
+	$(window).resize(function(){
+		this.timer;
+		clearTimeout(this.timer);
+		this.timer = setTimeout(function(){
+			self.update();
+		},300);
+	})
+}
 
 
 var mainScroll = ".wrapper",
 	scrollPopup = ".page-menu",
 	scrollModal = ".modal__wrapper",
 	scrollBrand = ".brand-modal",
-	mainScrollInit, scrollPopupInit, scrollModalInit, scrollBrand, burger;
+	mainScrollInit, scrollPopupInit, scrollModalInit, scrollBrandInit, burger, pull;
 window.onload =  function(){
 	mainScrollInit = new customScroll(mainScroll);
 	scrollPopupInit = new customScroll(scrollPopup);
 	scrollModalInit = new customScroll(scrollModal);
 	scrollBrandInit = new customScroll(scrollBrand);
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-	var pull = new PullMobile;
+	pull = new PullMobile();
 	pull.init();
 	burger = new mobileMenu();
 	burger.init();
-}
+};
+
+
 
 var PullMobile = function(){
 
@@ -338,7 +405,7 @@ FullGallery.prototype = {
 	scrollValue: function(){
 		var self = this;
 		
-		// (!window.requestAnimationFrame) ? setTimeout(gallery.updateSections(-self.y), 300) : window.requestAnimationFrame(function(){gallery.updateSections(-self.y)});
+		(!window.requestAnimationFrame) ? setTimeout(gallery.updateSections(-self.y), 300) : window.requestAnimationFrame(function(){gallery.updateSections(-self.y)});
 		
 	},
 	updateSections: function(posTop) {
@@ -383,6 +450,7 @@ Filter.prototype = {
 		this.trigger = this.el.find(".filter-trigger");
 		this.fader = this.el.find(".filter-body_action");
 		this.submit = this.el.find(".form-submit");
+		this.reset = this.el.find(".form-reset");
 		this.form = this.el.find("form");
 		this.events();
 	},
@@ -398,10 +466,15 @@ Filter.prototype = {
 		});
 		this.submit.on("click", function(event){
 			var link = self.submitForm();
-			console.log(link)
+			loading(this.form.attr("action"));
 			self.closeFilter();
 			event.preventDefault();
-		})
+		});
+		this.reset.on("click", function(event){
+			loading();
+			self.closeFilter();
+			event.preventDefault();
+		});
 	},
 	openFilter: function(){
 		this.trigger.addClass("open");
@@ -574,22 +647,29 @@ Pagination.prototype = {
 				mainScrollInit.scrollToElementTime(0,800);
 				setTimeout(function(){
 					$(self.options.appendContainer).addClass("load");
-				},1000);				
+				},1000);
 			},
 			success: function(content){
 				var that = this;
 				this.cont = $(content).find(self.options.appendContainer).html();
 				this.nextCurr = $(content).find(self.options.paginCurrent).html();
+				this.linkNext = $(content).find(self.options.btnNext).attr("href");
+				this.linkPrev = $(content).find(self.options.btnPrev).attr("href");
+
+				window.history.pushState("page" + element, element, element);
+				window.history.replaceState("page" + element, element, element);
 				
 				setTimeout(function(){
 					$(self.options.appendContainer).html(that.cont).promise().done(function(){
 						mainScrollInit.update();
 						$(self.options.appendContainer).removeClass("load");
 						$(self.el).find(self.default.paginCurrent).html(that.nextCurr);
+						$(self.el).find(self.default.btnNext).attr("href", that.linkNext);
+						$(self.el).find(self.default.btnPrev).attr("href", that.linkPrev);
 					});
-				}, 1500);					
+				}, 1500);
 			}
-		})
+		});
 	}
 }
 function triggerLink(){
@@ -633,6 +713,7 @@ function Form(){
 
 		modal.addClass("open");
 		_this.burger.addClass("modal open_burger");
+
 	};
 
 	_this.closeModal = function(){
@@ -658,7 +739,7 @@ if(typeof Validation == "undefined") {
 		this.init();
 	};
 	Validation.prototype.options = {
-		onSubmit : function() {
+		onSubmit : function(form) {
 			return false;
 		},
 		onReset: function(form){
@@ -813,7 +894,7 @@ BrandModal.prototype = {
 	},
 	openWindow: function(el) {
 		var self = this;
-		this.modal = this.modalContainer.find("[data-modal-index=" + el + "]");
+		this.modal = this.modalContainer.find("[data-modal-index=" + (+el) + "]");
 		scrollBrandInit.scrollUp();
 		setTimeout(function(){			
 			self.scrollArea.height(self.modal.innerHeight());
@@ -838,11 +919,11 @@ BrandModal.prototype = {
 	}
 }
 function SimpleValidForm(el, options){
-	this.el = el
+	this.el = el;
 	this.options = extend( {}, this.options );
 	extend( this.options, options );
 	this.init();
-}
+};
 SimpleValidForm.prototype.options = {
 	onSubmit: function(){
 		return false;
@@ -860,6 +941,7 @@ SimpleValidForm.prototype = {
 		this.submit.on("click", function(event){
 			self.input.forEach(function(item){
 				self.validate(item);
+				return false;
 			});
 			event.preventDefault();
 		});
@@ -898,7 +980,21 @@ HorizontalGallery.prototype = {
 			arrows: false,
 			speed: 800,
 			touchMove: false,
-			touchThreshold: 5
+			touchThreshold: 5,
+			responsive: [
+				{
+					breakpoint: 1025,
+					settings: {
+						centerPadding: '50px'
+					}
+				},
+				{
+					breakpoint: 768,
+					settings: {
+						centerPadding: '15px'
+					}
+				}
+			]
 		});
 
 		this.slideLength = this.el.find(".slider-item").length;
@@ -1031,5 +1127,146 @@ ModalVideo.prototype = {
 				self.mainCover.removeClass("openModal");
 			}, this.opt.timeout*2.5);
 		}
+	}
+}
+function maps(){
+	if(typeof (google) != "object") {
+		var tag = document.createElement("script");
+
+		tag.setAttribute("type", "text/javascript");
+		tag.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcDrkEbKdrAWUT7ZorYyn-NwTj9YD6DN4&callback=initMap");
+		document.querySelector(".map-modal").appendChild(tag);
+	} else {
+		$(initialize);
+	}
+}
+function initMap(){
+	$(window).bind(initialize());
+}
+function initialize() {
+	var arrCoord = $("#map").data("position");
+	var coord = arrCoord.split(",");
+	var stylez = [{"featureType":"all","elementType":"geometry","stylers":[{"color":"#262c33"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"gamma":0.01},{"lightness":20},{"color":"#949aa6"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":-31},{"lightness":-33},{"weight":2},{"gamma":"0.00"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":30},{"saturation":30},{"color":"#353c44"},{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":"0"},{"lightness":"0"},{"gamma":"0.30"},{"weight":"0.01"},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"lightness":"100"},{"saturation":-20},{"visibility":"simplified"},{"color":"#31383f"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":10},{"saturation":-30},{"color":"#2a3037"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"saturation":"-100"},{"lightness":"-100"},{"gamma":"0.00"},{"color":"#2a3037"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"visibility":"on"},{"color":"#575e6b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#4c5561"},{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"lightness":-20},{"color":"#2a3037"}]}];
+	var mapOptions = {
+		zoom: 16,
+		disableDefaultUI: true,
+		scrollwheel: true,
+		panControl: false,
+		zoomControl: false,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL,
+			position: google.maps.ControlPosition.RIGHT_CENTER
+		},
+		scaleControl: true,
+		center: new google.maps.LatLng(coord[0], coord[1]),
+	};
+
+	map = new google.maps.Map(document.getElementById('map'),mapOptions);
+	var mapType = new google.maps.StyledMapType(stylez, { name:"Grayscale" });
+	map.mapTypes.set('tehgrayz', mapType);
+	map.setMapTypeId('tehgrayz');
+	var image = 'img/icons/baloon.png';
+	var myLatLng = new google.maps.LatLng(coord[0], coord[1]);
+	var beachMarker = new google.maps.Marker({
+		position: myLatLng,
+		map: map,
+		icon: image,
+		title:""
+	});
+
+	google.maps.event.addDomListener(window, "resize", function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, "resize");
+		map.setCenter(center); 
+	});
+
+	// var zoomControlDiv = document.createElement('div');
+ //  	var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+ //  	zoomControlDiv.index = 1;
+	// map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
+};
+function ZoomControl(controlDiv, map) {
+	controlDiv.style.padding = "30px";
+
+	var controlWrapper = document.createElement('div');
+		controlWrapper.style.cursor = 'pointer';
+		controlWrapper.style.textAlign = 'center';
+		controlWrapper.style.width = '30px'; 
+		controlWrapper.style.height = '60px';
+		controlDiv.appendChild(controlWrapper);
+
+	var zoomInButton = document.createElement('div');
+		zoomInButton.classList.add("zoomIn");
+		zoomInButton.style.width = '30px'; 
+		zoomInButton.style.height = '30px';
+		controlWrapper.appendChild(zoomInButton);
+
+	var zoomOutButton = document.createElement('div');
+		zoomOutButton.classList.add("zoomOut");
+		zoomOutButton.style.width = '30px'; 
+		zoomOutButton.style.height = '30px';
+		controlWrapper.appendChild(zoomOutButton);
+
+	google.maps.event.addDomListener(zoomInButton, 'click', function() {
+		map.setZoom(map.getZoom() + 1);
+	});
+
+	google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+		map.setZoom(map.getZoom() - 1);
+	});
+}
+
+function mapModal() {
+	var _this = this;
+
+	_this.opt = {
+		timeout: 500
+	}
+
+	_this.eventHandlers = function(){
+		_this.trigger.on("click", function(e){
+
+			_this.openModal();
+
+			e.preventDefault();
+		});
+
+		_this.mapCloseBtn.on("click", function(){
+			_this.closeModal();
+		});
+
+		// _this.modalContainer.on("click", function(){
+		// 	_this.closeModal()
+		// });
+
+		_this.mapContainer.on("click", function(e){
+			e.stopPropagation();
+		});
+	};
+
+	_this.openModal = function(){
+		_this.modalContainer.addClass("map-open map-overlay");
+		_this.mapContainer.addClass("open-map");
+		_this.mapCloseBtn.addClass("open_burger modal")
+	};
+
+	_this.closeModal = function(){
+		_this.mapContainer.removeClass("open-map");
+		_this.modalContainer.removeClass("map-overlay");
+		_this.mapCloseBtn.removeClass("open_burger");
+
+		setTimeout(function(){
+			_this.modalContainer.removeClass("map-open");
+			_this.mapCloseBtn.removeClass("modal")
+		}, _this.opt.timeout);
+	}
+
+	_this.init = function(){
+		_this.trigger = $(".js-modal-map");
+		_this.modalContainer = $(".map-modal");
+		_this.mapContainer = _this.modalContainer.find(".map-container");
+		_this.mapCloseBtn = _this.modalContainer.parents(".out").find(".burger");
+		_this.eventHandlers();
 	}
 }

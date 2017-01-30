@@ -4,18 +4,20 @@
 			a(href="#" class="lang") eng
 			.lang рус
 		nav.menu
-			mixin menuList(link, name)
-				li(class="menu-item" class={active: name === currentClass})
-					a(class="menu-item_link ajax-trigger" href=link) #{name}
+			mixin menuList(link, name, bool)
+				if(bool)
+					li(class="menu-item menu-item_link-padding" class={active: name === currentClass})
+						a(class="menu-item_link ajax-trigger" href=link) #{name}
+				else
+					li(class="menu-item" class={active: name === currentClass})
+						a(class="menu-item_link ajax-trigger" href=link) #{name}
 			ul.menu-container
-				+menuList("/", "Главная")
-			ul.menu-container
-				+menuList("collection.html", "Коллекции")
-				+menuList("stocks.html", "Акции")
-				+menuList("projects.html", "Проекты")
-			ul.menu-container
-				+menuList("showroom.html", "Шоурум")
-				+menuList("designers.html", "Дизайнерам")
+				+menuList("/", "Главная", true)
+				+menuList("collection.html", "Коллекции", false)
+				+menuList("stocks.html", "Акции", false)
+				+menuList("projects.html", "Проекты", true)
+				+menuList("showroom.html", "Шоурум", false)
+				+menuList("designers.html", "Дизайнерам", false)
 		.contacts-container
 			.contacts-column
 				.contacts-title Адрес

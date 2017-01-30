@@ -14,18 +14,17 @@ html
     meta(name='theme-color', content='#212121')
     meta(name="apple-mobile-web-app-status-bar-style" content="#212121")
     link(rel="stylesheet" media="all" href="css/screen.css")
-    //- script(src="http://connect.facebook.net/en_US/sdk.js")
     script(src="js/app.js")
   body
+    .screen-load
+      .load-container
+        .load-cover
+        .load-active
+          .load-active_cover
     //BEGIN out
     .out
       block content
     //END out
-    //- .cap
-    //-   .cap-inner
-    //-     .image
-    //-     p Please, switch to&nbsp;the&nbsp;desktop version
-    //-     a(href="#") Switch
     .pan-loader#pan-loader
       span.container-rotate#rotate
         <svg width="20" height="20">

@@ -1,4 +1,5 @@
 $icons: (0:0)
+$icons: map-merge($icons,(baloon: (X: -402px, Y:-47px, W: 12px, H: 12px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
 $icons: map-merge($icons,(desktop: (X: 0px, Y:0px, W: 294px, H: 243px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
 $icons: map-merge($icons,(logo: (X: -298px, Y:0px, W: 311px, H: 43px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
 $icons: map-merge($icons,(video-play: (X: -298px, Y:-47px, W: 100px, H: 99px, TW: 609px, TH: 243px, IMG: '../img/icons.png')))
@@ -37,6 +38,12 @@ $icons: map-merge($icons,(video-play: (X: -298px, Y:-47px, W: 100px, H: 99px, TW
 @mixin sr($i)
 	+sprite-retina($i)	
 
+//
+//.icon-baloon
+//	width: 12px
+//	height: 12px
+//	background-image: url('../img/icons.png')
+//	background-position: -402px -47px
 //
 //.icon-desktop
 //	width: 294px

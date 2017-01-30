@@ -29,6 +29,26 @@ block content
 									.list-item
 										.numbers 56
 										p Сотрудников в штате компании
+								a(href="#" class="maps-link js-modal-map")
+									span Как к нам проехать
+								.contacts-container
+									.contacts-column
+										.contacts-title Адрес
+										.contacts-text
+											p ул. Мележа 5, корп 2
+											p 9:00–19:00 в будние дни 
+												br/ 10:00–17:00 в выходные
+											p
+												a(href="#" class="goto") Как проехать
+									.contacts-column
+										.contacts-title Контакты
+										.contacts-text
+											p
+												span +375 17 237 16 07
+												span +375 17 237 16 08
+												span +375 29 111 11 76
+											p
+												a(href="#" class="mailto") info@fsn.by
 							.gallery-showroom
 								.gallery-showroom_container
 									.gallery-slider.js-gallery-slider
@@ -51,9 +71,10 @@ block content
 
 					- var name = "designers"
 					include includes/_footer
-		include includes/_video-popup			
+		include includes/_video-popup
 		include includes/_popup
 		include includes/_brand-modal
+		include includes/_map-popup
 		script(type="text/javascript").
 			var modal = new Form();
 				modal.init();
@@ -76,5 +97,8 @@ block content
 			var modal = new BrandModal($(".modal"));
 			var showroom = new HorizontalGallery($(".js-gallery-slider"));
 			var videoModal = new ModalVideo($(".cover_video-wrapp"));
+			$(maps);
+			var map = new mapModal();
+			map.init();
 	- var currentClass = "Шоурум"
 	include includes/_menu
