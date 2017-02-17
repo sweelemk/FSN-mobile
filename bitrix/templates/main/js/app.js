@@ -2262,7 +2262,7 @@ function extend( a, b ) {
 	}
 	return a;
 };
-
+var gallery;
 function customScroll(el) {
 	this.el = el;
 	if(document.querySelector(el) != null)
@@ -2314,10 +2314,11 @@ customScroll.prototype.scrollToElementTime = function (y, time) {
 
 customScroll.prototype.endscroll = function() {
 	var self = this;
-	// if(typeof gallery !== "undefined") {
-	// 	this.scroll.on("scroll", gallery.scrollValue);
-	// 	this.scroll.on("scrollEnd", gallery.scrollValue);
-	// }
+
+	if(gallery) {
+		this.scroll.on("scroll", gallery.scrollValue);
+		this.scroll.on("scrollEnd", gallery.scrollValue);
+	}
 }
 customScroll.prototype.scrollUpdate = function(){
 	var self = this;
@@ -2330,6 +2331,17 @@ customScroll.prototype.scrollUpdate = function(){
 	})
 }
 
+function isPassive() {
+	var supportsPassiveOption = false;
+	try {
+		addEventListener("test", null, Object.defineProperty({}, 'passive', {
+			get: function () {
+				supportsPassiveOption = true;
+			}
+		}));
+	} catch(e) {}
+	return supportsPassiveOption;
+}
 
 var mainScroll = ".wrapper",
 	scrollPopup = ".page-menu",
@@ -2341,7 +2353,11 @@ window.onload =  function(){
 	scrollPopupInit = new customScroll(scrollPopup);
 	scrollModalInit = new customScroll(scrollModal);
 	scrollBrandInit = new customScroll(scrollBrand);
-	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+		capture: false,
+		passive: false
+	} : false);
 	pull = new PullMobile();
 	pull.init();
 	burger = new mobileMenu();
@@ -2518,8 +2534,8 @@ function mobileMenu() {
 			_this.trigger.classList.add("open");
 			_this.trigger.classList.add("open_burger");
 			_this.container.classList.add("open");
-	 	} else {
-	 		_this.closeMenu();
+		} else {
+			_this.closeMenu();
 		}		
 	}
 
@@ -2571,7 +2587,7 @@ FullGallery.prototype = {
 	initVariables: function(){
 		var self = this;
 		this.mainColorContainer = $(".bg-color");
-		// this.init();
+		this.init();
 		
 		if(this.smallGalleryEl.length) {
 			this.smallGallery();
@@ -2581,6 +2597,8 @@ FullGallery.prototype = {
 		this.slide = this.el.find(".full-gallery_slide");
 		this.f_Slide = this.el.find(".full-gallery_slide").first();
 		this.f_Slide_Color = this.f_Slide.find("img").data("color");
+
+		console.log(this.f_Slide_Color )
 
 		this.f_Slide.addClass("current");
 		this.mainColorContainer.css("background-color", this.f_Slide_Color);
@@ -2774,6 +2792,8 @@ function loading(link) {
 		datatype: "html",
 		beforeSend: function(){
 			_this.initAnimation();
+			gallery = null;
+			pull = null;
 		},
 		success: function(content){
 			var cont = $(content).find("#touch").html();
@@ -2787,14 +2807,16 @@ function loading(link) {
 			$(".menu").find(".active").removeClass("active");
 
 			$(".menu").find(".menu-item").parent().eq(parentIndex).find("li").eq(navIndex).addClass("active");
-
+			$(".bg-color").css("background-color", bodyColor);
 			setTimeout(function(){
 				$("#touch").html(cont).promise().done(function(){
 					_doReset();
 					mainScrollInit.init();
-					scrollBrandInit.init();
+					//scrollBrandInit.init();
 					_this.endAnimation();
-					$(".bg-color").css("background-color", bodyColor);				
+					
+					pull = new PullMobile();
+					pull.init();				
 				});
 			}, 700);
 		}
